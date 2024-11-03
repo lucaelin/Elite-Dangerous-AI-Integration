@@ -1,0 +1,769 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lucaelin.github.io/elite-dangerous-ai-integration/freeSetup/">
+      
+      
+        <link rel="prev" href="../edgeTTSVoices/">
+      
+      
+        <link rel="next" href="../xtts/VoiceClone-and-XTTS-Setup/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Getting started for "free" - COVAS:NEXT</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started-for-free" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="COVAS:NEXT" class="md-header__button md-logo" aria-label="COVAS:NEXT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            COVAS:NEXT
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting started for "free"
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="COVAS:NEXT" class="md-nav__button md-logo" aria-label="COVAS:NEXT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    COVAS:NEXT
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    COVAS:NEXT - Elite:Dangerous AI Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aiToolList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    List of supported AI Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edgeTTSVoices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    edgeTTSVoices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Getting started for "free"
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Getting started for "free"
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-llm-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. LLM Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. LLM Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-using-openrouterai-cloud-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Using OpenRouter.ai (cloud-based)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-using-ollama-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Using Ollama (local)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-stt-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. STT Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. STT Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-using-aiserver-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Using AIServer (local)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tts-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. TTS Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. TTS Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-using-edge-tts-cloud-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Using Edge-TTS (cloud-based)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-using-aiserver-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Using AIServer (local)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-aiserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using AIServer
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Xtts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Xtts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xtts/VoiceClone-and-XTTS-Setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-llm-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. LLM Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. LLM Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-using-openrouterai-cloud-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Using OpenRouter.ai (cloud-based)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-using-ollama-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Using Ollama (local)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-stt-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. STT Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. STT Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-using-aiserver-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Using AIServer (local)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tts-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. TTS Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. TTS Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-using-edge-tts-cloud-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Using Edge-TTS (cloud-based)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-using-aiserver-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Using AIServer (local)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-aiserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using AIServer
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="getting-started-for-free">Getting started for "free"</h1>
+<p><strong>WARNING: This setup is highly experimental and will significantly degrade your experience. We recommend using OpenAI instead.</strong></p>
+<p>There are 3 main components that need to be configured for a free setup: LLM, STT, TTS.</p>
+<h2 id="1-llm-configuration">1. LLM Configuration</h2>
+<p>The LLM is the brains of the operation. It is responsible for understanding the context of the conversation and generating the next response or dispatching actions. The LLM is a large model that requires a lot of resources to run, so it requires either using a cloud service or having a really good GPU available.</p>
+<h3 id="11-using-openrouterai-cloud-based">1.1 Using OpenRouter.ai (cloud-based)</h3>
+<p>The cloud service https://openrouter.ai provides a free tier that can be used to run the LLM. </p>
+<p><em>Upsides:</em>
+- Free tier available
+- Does not require a powerful GPU
+- Good response times</p>
+<p><em>Downsides:</em>
+- Account creation is required
+- Tool use is almost impossible, so the AI will not be able to control your ship or search for information on the web
+- The free tier has significant rate-limiting
+- The available models are not as powerful as the ones available on OpenAI, they may hallucinate more and be less coherent</p>
+<p>To use OpenRouter.ai, you need to sign up for an account and create an API key.
+Once you have an account and an API key, you can check the website for the available models in the :free tier. At the time of writing we recommend using ´meta-llama/llama-3.1-70b-instruct:free`.</p>
+<pre><code>LLM Provider: Custom
+LLM Model Name: meta-llama/llama-3.1-70b-instruct:free
+LLM Endpoint URL: https://openrouter.ai/v1
+LLM API Key: &lt;your API key&gt;
+</code></pre>
+<h3 id="12-using-ollama-local">1.2 Using Ollama (local)</h3>
+<p>https://ollama.com is a third-party application that can run the LLM locally on your computer. </p>
+<p><em>Upsides:</em>
+- Can be used offline
+- It is free, except for the cost of the GPU and electricity
+- No rate limiting (except for the hardware)</p>
+<p><em>Downsides:</em>
+- Requires a powerful GPU (RTX 3090 or better recommended)
+- High latency, especially on weaker GPUs
+- Not trivial to set up
+- Tool use is almost difficult, so the AI will not be able to control your ship or search for information on the web in most cases</p>
+<p>After installing Ollama, you need to download a model according to the instructions on their website. At the time of writing we recommend using <code>mistral-nemo</code>.
+Once the download is complete you can configure the LLM as follows:</p>
+<pre><code>LLM Provider: Custom
+LLM Model Name: mistral-nemo
+LLM Endpoint URL: http://localhost:11434/v1
+LLM API Key: &lt;empty&gt;
+</code></pre>
+<h2 id="2-stt-configuration">2. STT Configuration</h2>
+<p>The Speech-to-Text (STT) component is responsible for converting your voice into text that the LLM can understand. No cloud service is available that provides free STT, so you will need to run it locally. Luckily it requires a little less resources and can be run on a weaker GPU or even a CPU.</p>
+<h3 id="21-using-aiserver-local">2.1 Using AIServer (local)</h3>
+<p>See the section on AIServer below.</p>
+<h2 id="3-tts-configuration">3. TTS Configuration</h2>
+<p>The Text-to-Speech (TTS) component is responsible for reading out the responses of the LLM. Edge-TTS is a free cloud service that can be used as TTS. Alternatively, you can use the AIServer to run TTS locally.</p>
+<h3 id="31-using-edge-tts-cloud-based">3.1 Using Edge-TTS (cloud-based)</h3>
+<p>You can simply select Edge-TTS as the TTS provider.</p>
+<p><em>Upsides:</em>
+- It is free
+- (Almost) No rate limiting
+- High quality voices</p>
+<p><em>Downsides:</em>
+- It's a cloud service, so it requires an internet connection</p>
+<h3 id="32-using-aiserver-local">3.2 Using AIServer (local)</h3>
+<p>See the section on AIServer below.</p>
+<h2 id="using-aiserver">Using AIServer</h2>
+<p><strong>WARNING: This setup is highly experimental and is potentially difficult to set up.</strong>
+The AIServer can serve as a local STT or TTS service.
+It is included in the download of our software and can be found in the <code>aiserver</code> folder. You can run it by double-clicking the <code>AIServer.exe</code> file.</p>
+<p><em>Upsides:</em>
+- Can be used offline
+- It is free, except for the cost of the GPU and electricity
+- No rate limiting (except for the hardware)</p>
+<p><em>Downsides:</em>
+- Tricky to set up, as it is still highly experimental
+- May struggle with multilingual input/output
+- Higher latency than cloud services</p>
+<p>Upon starting the AIServer, need to configure it using the window that pops up. </p>
+<p>You will first need to select a TTS Model. At the time of writing we recommend using <code>vits-piper-en_US-libritts-high.tar.bz2</code>. </p>
+<p>Secondly, you will need to configure the STT model. At the time of writing we recommend using <code>distil-medium.en</code> or <code>distil-small.en</code>.</p>
+<p>Third, you will need to configure the network access. Confirm the defaults as 127.0.0.0 and port 8080 if you are unsure.</p>
+<p>The AIServer window will then download the selected models and show a message when done: <code>* Running on http://127.0.0.1:8080</code>.</p>
+<p>Lastly, you will need to configure the AI Integration itself. </p>
+<pre><code>STT Provider: Custom
+STT Model Name: whisper-1
+STT Endpoint URL: http://localhost:8080/v1
+STT API Key: &lt;empty&gt;
+</code></pre>
+<pre><code>TTS Provider: Custom
+TTS Model Name: tts-1
+TTS Endpoint URL: http://localhost:8080/v1
+TTS API Key: &lt;empty&gt;
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

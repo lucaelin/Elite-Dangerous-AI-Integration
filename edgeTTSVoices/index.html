@@ -1,0 +1,1951 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lucaelin.github.io/elite-dangerous-ai-integration/edgeTTSVoices/">
+      
+      
+        <link rel="prev" href="../description/">
+      
+      
+        <link rel="next" href="../freeSetup/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>edgeTTSVoices - COVAS:NEXT</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="COVAS:NEXT" class="md-header__button md-logo" aria-label="COVAS:NEXT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            COVAS:NEXT
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              edgeTTSVoices
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="COVAS:NEXT" class="md-nav__button md-logo" aria-label="COVAS:NEXT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    COVAS:NEXT
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    COVAS:NEXT - Elite:Dangerous AI Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aiToolList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    List of supported AI Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    edgeTTSVoices
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../freeSetup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started for "free"
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Xtts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Xtts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xtts/VoiceClone-and-XTTS-Setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Note
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>edgeTTSVoices</h1>
+
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (af-ZA, AdriNeural)
+- <strong>ShortName:</strong> af-ZA-AdriNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> af-ZA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (af-ZA, WillemNeural)
+- <strong>ShortName:</strong> af-ZA-WillemNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> af-ZA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sq-AL, AnilaNeural)
+- <strong>ShortName:</strong> sq-AL-AnilaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> sq-AL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sq-AL, IlirNeural)
+- <strong>ShortName:</strong> sq-AL-IlirNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> sq-AL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (am-ET, AmehaNeural)
+- <strong>ShortName:</strong> am-ET-AmehaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> am-ET
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (am-ET, MekdesNeural)
+- <strong>ShortName:</strong> am-ET-MekdesNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> am-ET
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-DZ, AminaNeural)
+- <strong>ShortName:</strong> ar-DZ-AminaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-DZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-DZ, IsmaelNeural)
+- <strong>ShortName:</strong> ar-DZ-IsmaelNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-DZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-BH, AliNeural)
+- <strong>ShortName:</strong> ar-BH-AliNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-BH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-BH, LailaNeural)
+- <strong>ShortName:</strong> ar-BH-LailaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-BH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-EG, SalmaNeural)
+- <strong>ShortName:</strong> ar-EG-SalmaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-EG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-EG, ShakirNeural)
+- <strong>ShortName:</strong> ar-EG-ShakirNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-EG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-IQ, BasselNeural)
+- <strong>ShortName:</strong> ar-IQ-BasselNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-IQ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-IQ, RanaNeural)
+- <strong>ShortName:</strong> ar-IQ-RanaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-IQ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-JO, SanaNeural)
+- <strong>ShortName:</strong> ar-JO-SanaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-JO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-JO, TaimNeural)
+- <strong>ShortName:</strong> ar-JO-TaimNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-JO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-KW, FahedNeural)
+- <strong>ShortName:</strong> ar-KW-FahedNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-KW
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-KW, NouraNeural)
+- <strong>ShortName:</strong> ar-KW-NouraNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-KW
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-LB, LaylaNeural)
+- <strong>ShortName:</strong> ar-LB-LaylaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-LB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-LB, RamiNeural)
+- <strong>ShortName:</strong> ar-LB-RamiNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-LB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-LY, ImanNeural)
+- <strong>ShortName:</strong> ar-LY-ImanNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-LY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-LY, OmarNeural)
+- <strong>ShortName:</strong> ar-LY-OmarNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-LY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-MA, JamalNeural)
+- <strong>ShortName:</strong> ar-MA-JamalNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-MA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-MA, MounaNeural)
+- <strong>ShortName:</strong> ar-MA-MounaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-MA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-OM, AbdullahNeural)
+- <strong>ShortName:</strong> ar-OM-AbdullahNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-OM
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-OM, AyshaNeural)
+- <strong>ShortName:</strong> ar-OM-AyshaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-OM
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-QA, AmalNeural)
+- <strong>ShortName:</strong> ar-QA-AmalNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-QA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-QA, MoazNeural)
+- <strong>ShortName:</strong> ar-QA-MoazNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-QA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-SA, HamedNeural)
+- <strong>ShortName:</strong> ar-SA-HamedNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-SA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-SA, ZariyahNeural)
+- <strong>ShortName:</strong> ar-SA-ZariyahNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-SA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-SY, AmanyNeural)
+- <strong>ShortName:</strong> ar-SY-AmanyNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-SY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-SY, LaithNeural)
+- <strong>ShortName:</strong> ar-SY-LaithNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-SY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-TN, HediNeural)
+- <strong>ShortName:</strong> ar-TN-HediNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-TN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-TN, ReemNeural)
+- <strong>ShortName:</strong> ar-TN-ReemNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-TN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-AE, FatimaNeural)
+- <strong>ShortName:</strong> ar-AE-FatimaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-AE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-AE, HamdanNeural)
+- <strong>ShortName:</strong> ar-AE-HamdanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-AE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-YE, MaryamNeural)
+- <strong>ShortName:</strong> ar-YE-MaryamNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ar-YE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ar-YE, SalehNeural)
+- <strong>ShortName:</strong> ar-YE-SalehNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ar-YE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (az-AZ, BabekNeural)
+- <strong>ShortName:</strong> az-AZ-BabekNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> az-AZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (az-AZ, BanuNeural)
+- <strong>ShortName:</strong> az-AZ-BanuNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> az-AZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bn-BD, NabanitaNeural)
+- <strong>ShortName:</strong> bn-BD-NabanitaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> bn-BD
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bn-BD, PradeepNeural)
+- <strong>ShortName:</strong> bn-BD-PradeepNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> bn-BD
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bn-IN, BashkarNeural)
+- <strong>ShortName:</strong> bn-IN-BashkarNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> bn-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bn-IN, TanishaaNeural)
+- <strong>ShortName:</strong> bn-IN-TanishaaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> bn-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bs-BA, GoranNeural)
+- <strong>ShortName:</strong> bs-BA-GoranNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> bs-BA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bs-BA, VesnaNeural)
+- <strong>ShortName:</strong> bs-BA-VesnaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> bs-BA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bg-BG, BorislavNeural)
+- <strong>ShortName:</strong> bg-BG-BorislavNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> bg-BG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (bg-BG, KalinaNeural)
+- <strong>ShortName:</strong> bg-BG-KalinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> bg-BG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (my-MM, NilarNeural)
+- <strong>ShortName:</strong> my-MM-NilarNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> my-MM
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (my-MM, ThihaNeural)
+- <strong>ShortName:</strong> my-MM-ThihaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> my-MM
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ca-ES, EnricNeural)
+- <strong>ShortName:</strong> ca-ES-EnricNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ca-ES
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ca-ES, JoanaNeural)
+- <strong>ShortName:</strong> ca-ES-JoanaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ca-ES
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-HK, HiuGaaiNeural)
+- <strong>ShortName:</strong> zh-HK-HiuGaaiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-HK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-HK, HiuMaanNeural)
+- <strong>ShortName:</strong> zh-HK-HiuMaanNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-HK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-HK, WanLungNeural)
+- <strong>ShortName:</strong> zh-HK-WanLungNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> zh-HK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN, XiaoxiaoNeural)
+- <strong>ShortName:</strong> zh-CN-XiaoxiaoNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-CN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Warm']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN, XiaoyiNeural)
+- <strong>ShortName:</strong> zh-CN-XiaoyiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-CN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Cartoon', 'Novel'], <strong>'VoicePersonalities':</strong> ['Lively']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN, YunjianNeural)
+- <strong>ShortName:</strong> zh-CN-YunjianNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> zh-CN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Sports', ' Novel'], <strong>'VoicePersonalities':</strong> ['Passion']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN, YunxiNeural)
+- <strong>ShortName:</strong> zh-CN-YunxiNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> zh-CN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Novel'], <strong>'VoicePersonalities':</strong> ['Lively', 'Sunshine']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN, YunxiaNeural)
+- <strong>ShortName:</strong> zh-CN-YunxiaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> zh-CN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Cartoon', 'Novel'], <strong>'VoicePersonalities':</strong> ['Cute']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN, YunyangNeural)
+- <strong>ShortName:</strong> zh-CN-YunyangNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> zh-CN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News'], <strong>'VoicePersonalities':</strong> ['Professional', 'Reliable']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN-liaoning, XiaobeiNeural)
+- <strong>ShortName:</strong> zh-CN-liaoning-XiaobeiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-CN-liaoning
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Dialect'], <strong>'VoicePersonalities':</strong> ['Humorous']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-TW, HsiaoChenNeural)
+- <strong>ShortName:</strong> zh-TW-HsiaoChenNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-TW
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-TW, YunJheNeural)
+- <strong>ShortName:</strong> zh-TW-YunJheNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> zh-TW
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-TW, HsiaoYuNeural)
+- <strong>ShortName:</strong> zh-TW-HsiaoYuNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-TW
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zh-CN-shaanxi, XiaoniNeural)
+- <strong>ShortName:</strong> zh-CN-shaanxi-XiaoniNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zh-CN-shaanxi
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Dialect'], <strong>'VoicePersonalities':</strong> ['Bright']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (hr-HR, GabrijelaNeural)
+- <strong>ShortName:</strong> hr-HR-GabrijelaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> hr-HR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (hr-HR, SreckoNeural)
+- <strong>ShortName:</strong> hr-HR-SreckoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> hr-HR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (cs-CZ, AntoninNeural)
+- <strong>ShortName:</strong> cs-CZ-AntoninNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> cs-CZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (cs-CZ, VlastaNeural)
+- <strong>ShortName:</strong> cs-CZ-VlastaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> cs-CZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (da-DK, ChristelNeural)
+- <strong>ShortName:</strong> da-DK-ChristelNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> da-DK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (da-DK, JeppeNeural)
+- <strong>ShortName:</strong> da-DK-JeppeNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> da-DK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (nl-BE, ArnaudNeural)
+- <strong>ShortName:</strong> nl-BE-ArnaudNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> nl-BE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (nl-BE, DenaNeural)
+- <strong>ShortName:</strong> nl-BE-DenaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> nl-BE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (nl-NL, ColetteNeural)
+- <strong>ShortName:</strong> nl-NL-ColetteNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> nl-NL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (nl-NL, FennaNeural)
+- <strong>ShortName:</strong> nl-NL-FennaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> nl-NL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (nl-NL, MaartenNeural)
+- <strong>ShortName:</strong> nl-NL-MaartenNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> nl-NL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-AU, NatashaNeural)
+- <strong>ShortName:</strong> en-AU-NatashaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-AU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-AU, WilliamNeural)
+- <strong>ShortName:</strong> en-AU-WilliamNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-AU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-CA, ClaraNeural)
+- <strong>ShortName:</strong> en-CA-ClaraNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-CA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-CA, LiamNeural)
+- <strong>ShortName:</strong> en-CA-LiamNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-CA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-HK, SamNeural)
+- <strong>ShortName:</strong> en-HK-SamNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-HK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-HK, YanNeural)
+- <strong>ShortName:</strong> en-HK-YanNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-HK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-IN, NeerjaNeural)
+- <strong>ShortName:</strong> en-IN-NeerjaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-IN, PrabhatNeural)
+- <strong>ShortName:</strong> en-IN-PrabhatNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-IE, ConnorNeural)
+- <strong>ShortName:</strong> en-IE-ConnorNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-IE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-IE, EmilyNeural)
+- <strong>ShortName:</strong> en-IE-EmilyNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-IE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-KE, AsiliaNeural)
+- <strong>ShortName:</strong> en-KE-AsiliaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-KE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-KE, ChilembaNeural)
+- <strong>ShortName:</strong> en-KE-ChilembaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-KE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-NZ, MitchellNeural)
+- <strong>ShortName:</strong> en-NZ-MitchellNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-NZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-NZ, MollyNeural)
+- <strong>ShortName:</strong> en-NZ-MollyNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-NZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-NG, AbeoNeural)
+- <strong>ShortName:</strong> en-NG-AbeoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-NG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-NG, EzinneNeural)
+- <strong>ShortName:</strong> en-NG-EzinneNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-NG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-PH, JamesNeural)
+- <strong>ShortName:</strong> en-PH-JamesNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-PH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-PH, RosaNeural)
+- <strong>ShortName:</strong> en-PH-RosaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-PH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-SG, LunaNeural)
+- <strong>ShortName:</strong> en-SG-LunaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-SG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-SG, WayneNeural)
+- <strong>ShortName:</strong> en-SG-WayneNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-SG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-ZA, LeahNeural)
+- <strong>ShortName:</strong> en-ZA-LeahNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-ZA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-ZA, LukeNeural)
+- <strong>ShortName:</strong> en-ZA-LukeNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-ZA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-TZ, ElimuNeural)
+- <strong>ShortName:</strong> en-TZ-ElimuNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-TZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-TZ, ImaniNeural)
+- <strong>ShortName:</strong> en-TZ-ImaniNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-TZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-GB, LibbyNeural)
+- <strong>ShortName:</strong> en-GB-LibbyNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-GB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-GB, MaisieNeural)
+- <strong>ShortName:</strong> en-GB-MaisieNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-GB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-GB, RyanNeural)
+- <strong>ShortName:</strong> en-GB-RyanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-GB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-GB, SoniaNeural)
+- <strong>ShortName:</strong> en-GB-SoniaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-GB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-GB, ThomasNeural)
+- <strong>ShortName:</strong> en-GB-ThomasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-GB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, AriaNeural)
+- <strong>ShortName:</strong> en-US-AriaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Positive', 'Confident']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, AnaNeural)
+- <strong>ShortName:</strong> en-US-AnaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Cartoon', 'Conversation'], <strong>'VoicePersonalities':</strong> ['Cute']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, ChristopherNeural)
+- <strong>ShortName:</strong> en-US-ChristopherNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Reliable', 'Authority']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, EricNeural)
+- <strong>ShortName:</strong> en-US-EricNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Rational']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, GuyNeural)
+- <strong>ShortName:</strong> en-US-GuyNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Passion']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, JennyNeural)
+- <strong>ShortName:</strong> en-US-JennyNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['Conversation', 'News'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Considerate', 'Comfort']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, MichelleNeural)
+- <strong>ShortName:</strong> en-US-MichelleNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Pleasant']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, RogerNeural)
+- <strong>ShortName:</strong> en-US-RogerNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Lively']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (en-US, SteffanNeural)
+- <strong>ShortName:</strong> en-US-SteffanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> en-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['News', 'Novel'], <strong>'VoicePersonalities':</strong> ['Rational']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (et-EE, AnuNeural)
+- <strong>ShortName:</strong> et-EE-AnuNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> et-EE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (et-EE, KertNeural)
+- <strong>ShortName:</strong> et-EE-KertNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> et-EE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fil-PH, AngeloNeural)
+- <strong>ShortName:</strong> fil-PH-AngeloNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fil-PH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fil-PH, BlessicaNeural)
+- <strong>ShortName:</strong> fil-PH-BlessicaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fil-PH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fi-FI, HarriNeural)
+- <strong>ShortName:</strong> fi-FI-HarriNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fi-FI
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fi-FI, NooraNeural)
+- <strong>ShortName:</strong> fi-FI-NooraNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fi-FI
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-BE, CharlineNeural)
+- <strong>ShortName:</strong> fr-BE-CharlineNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fr-BE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-BE, GerardNeural)
+- <strong>ShortName:</strong> fr-BE-GerardNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fr-BE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-CA, AntoineNeural)
+- <strong>ShortName:</strong> fr-CA-AntoineNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fr-CA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-CA, JeanNeural)
+- <strong>ShortName:</strong> fr-CA-JeanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fr-CA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-CA, SylvieNeural)
+- <strong>ShortName:</strong> fr-CA-SylvieNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fr-CA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-FR, DeniseNeural)
+- <strong>ShortName:</strong> fr-FR-DeniseNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fr-FR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-FR, EloiseNeural)
+- <strong>ShortName:</strong> fr-FR-EloiseNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fr-FR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-FR, HenriNeural)
+- <strong>ShortName:</strong> fr-FR-HenriNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fr-FR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-CH, ArianeNeural)
+- <strong>ShortName:</strong> fr-CH-ArianeNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fr-CH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fr-CH, FabriceNeural)
+- <strong>ShortName:</strong> fr-CH-FabriceNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fr-CH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (gl-ES, RoiNeural)
+- <strong>ShortName:</strong> gl-ES-RoiNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> gl-ES
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (gl-ES, SabelaNeural)
+- <strong>ShortName:</strong> gl-ES-SabelaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> gl-ES
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ka-GE, EkaNeural)
+- <strong>ShortName:</strong> ka-GE-EkaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ka-GE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ka-GE, GiorgiNeural)
+- <strong>ShortName:</strong> ka-GE-GiorgiNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ka-GE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-AT, IngridNeural)
+- <strong>ShortName:</strong> de-AT-IngridNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> de-AT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-AT, JonasNeural)
+- <strong>ShortName:</strong> de-AT-JonasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> de-AT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-DE, AmalaNeural)
+- <strong>ShortName:</strong> de-DE-AmalaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> de-DE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-DE, ConradNeural)
+- <strong>ShortName:</strong> de-DE-ConradNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> de-DE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-DE, KatjaNeural)
+- <strong>ShortName:</strong> de-DE-KatjaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> de-DE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-DE, KillianNeural)
+- <strong>ShortName:</strong> de-DE-KillianNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> de-DE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-CH, JanNeural)
+- <strong>ShortName:</strong> de-CH-JanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> de-CH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (de-CH, LeniNeural)
+- <strong>ShortName:</strong> de-CH-LeniNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> de-CH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (el-GR, AthinaNeural)
+- <strong>ShortName:</strong> el-GR-AthinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> el-GR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (el-GR, NestorasNeural)
+- <strong>ShortName:</strong> el-GR-NestorasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> el-GR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (gu-IN, DhwaniNeural)
+- <strong>ShortName:</strong> gu-IN-DhwaniNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> gu-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (gu-IN, NiranjanNeural)
+- <strong>ShortName:</strong> gu-IN-NiranjanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> gu-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (he-IL, AvriNeural)
+- <strong>ShortName:</strong> he-IL-AvriNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> he-IL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (he-IL, HilaNeural)
+- <strong>ShortName:</strong> he-IL-HilaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> he-IL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (hi-IN, MadhurNeural)
+- <strong>ShortName:</strong> hi-IN-MadhurNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> hi-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (hi-IN, SwaraNeural)
+- <strong>ShortName:</strong> hi-IN-SwaraNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> hi-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (hu-HU, NoemiNeural)
+- <strong>ShortName:</strong> hu-HU-NoemiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> hu-HU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (hu-HU, TamasNeural)
+- <strong>ShortName:</strong> hu-HU-TamasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> hu-HU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (is-IS, GudrunNeural)
+- <strong>ShortName:</strong> is-IS-GudrunNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> is-IS
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (is-IS, GunnarNeural)
+- <strong>ShortName:</strong> is-IS-GunnarNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> is-IS
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (id-ID, ArdiNeural)
+- <strong>ShortName:</strong> id-ID-ArdiNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> id-ID
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (id-ID, GadisNeural)
+- <strong>ShortName:</strong> id-ID-GadisNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> id-ID
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ga-IE, ColmNeural)
+- <strong>ShortName:</strong> ga-IE-ColmNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ga-IE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ga-IE, OrlaNeural)
+- <strong>ShortName:</strong> ga-IE-OrlaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ga-IE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (it-IT, DiegoNeural)
+- <strong>ShortName:</strong> it-IT-DiegoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> it-IT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (it-IT, ElsaNeural)
+- <strong>ShortName:</strong> it-IT-ElsaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> it-IT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (it-IT, IsabellaNeural)
+- <strong>ShortName:</strong> it-IT-IsabellaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> it-IT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ja-JP, KeitaNeural)
+- <strong>ShortName:</strong> ja-JP-KeitaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ja-JP
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ja-JP, NanamiNeural)
+- <strong>ShortName:</strong> ja-JP-NanamiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ja-JP
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (jv-ID, DimasNeural)
+- <strong>ShortName:</strong> jv-ID-DimasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> jv-ID
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (jv-ID, SitiNeural)
+- <strong>ShortName:</strong> jv-ID-SitiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> jv-ID
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (kn-IN, GaganNeural)
+- <strong>ShortName:</strong> kn-IN-GaganNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> kn-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (kn-IN, SapnaNeural)
+- <strong>ShortName:</strong> kn-IN-SapnaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> kn-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (kk-KZ, AigulNeural)
+- <strong>ShortName:</strong> kk-KZ-AigulNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> kk-KZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (kk-KZ, DauletNeural)
+- <strong>ShortName:</strong> kk-KZ-DauletNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> kk-KZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (km-KH, PisethNeural)
+- <strong>ShortName:</strong> km-KH-PisethNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> km-KH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (km-KH, SreymomNeural)
+- <strong>ShortName:</strong> km-KH-SreymomNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> km-KH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ko-KR, InJoonNeural)
+- <strong>ShortName:</strong> ko-KR-InJoonNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ko-KR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ko-KR, SunHiNeural)
+- <strong>ShortName:</strong> ko-KR-SunHiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ko-KR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (lo-LA, ChanthavongNeural)
+- <strong>ShortName:</strong> lo-LA-ChanthavongNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> lo-LA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (lo-LA, KeomanyNeural)
+- <strong>ShortName:</strong> lo-LA-KeomanyNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> lo-LA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (lv-LV, EveritaNeural)
+- <strong>ShortName:</strong> lv-LV-EveritaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> lv-LV
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (lv-LV, NilsNeural)
+- <strong>ShortName:</strong> lv-LV-NilsNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> lv-LV
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (lt-LT, LeonasNeural)
+- <strong>ShortName:</strong> lt-LT-LeonasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> lt-LT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (lt-LT, OnaNeural)
+- <strong>ShortName:</strong> lt-LT-OnaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> lt-LT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mk-MK, AleksandarNeural)
+- <strong>ShortName:</strong> mk-MK-AleksandarNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> mk-MK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mk-MK, MarijaNeural)
+- <strong>ShortName:</strong> mk-MK-MarijaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> mk-MK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ms-MY, OsmanNeural)
+- <strong>ShortName:</strong> ms-MY-OsmanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ms-MY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ms-MY, YasminNeural)
+- <strong>ShortName:</strong> ms-MY-YasminNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ms-MY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ml-IN, MidhunNeural)
+- <strong>ShortName:</strong> ml-IN-MidhunNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ml-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ml-IN, SobhanaNeural)
+- <strong>ShortName:</strong> ml-IN-SobhanaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ml-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mt-MT, GraceNeural)
+- <strong>ShortName:</strong> mt-MT-GraceNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> mt-MT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mt-MT, JosephNeural)
+- <strong>ShortName:</strong> mt-MT-JosephNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> mt-MT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mr-IN, AarohiNeural)
+- <strong>ShortName:</strong> mr-IN-AarohiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> mr-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mr-IN, ManoharNeural)
+- <strong>ShortName:</strong> mr-IN-ManoharNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> mr-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mn-MN, BataaNeural)
+- <strong>ShortName:</strong> mn-MN-BataaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> mn-MN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (mn-MN, YesuiNeural)
+- <strong>ShortName:</strong> mn-MN-YesuiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> mn-MN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ne-NP, HemkalaNeural)
+- <strong>ShortName:</strong> ne-NP-HemkalaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ne-NP
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ne-NP, SagarNeural)
+- <strong>ShortName:</strong> ne-NP-SagarNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ne-NP
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (nb-NO, FinnNeural)
+- <strong>ShortName:</strong> nb-NO-FinnNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> nb-NO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (nb-NO, PernilleNeural)
+- <strong>ShortName:</strong> nb-NO-PernilleNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> nb-NO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ps-AF, GulNawazNeural)
+- <strong>ShortName:</strong> ps-AF-GulNawazNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ps-AF
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ps-AF, LatifaNeural)
+- <strong>ShortName:</strong> ps-AF-LatifaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ps-AF
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fa-IR, DilaraNeural)
+- <strong>ShortName:</strong> fa-IR-DilaraNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> fa-IR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (fa-IR, FaridNeural)
+- <strong>ShortName:</strong> fa-IR-FaridNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> fa-IR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (pl-PL, MarekNeural)
+- <strong>ShortName:</strong> pl-PL-MarekNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> pl-PL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (pl-PL, ZofiaNeural)
+- <strong>ShortName:</strong> pl-PL-ZofiaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> pl-PL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (pt-BR, AntonioNeural)
+- <strong>ShortName:</strong> pt-BR-AntonioNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> pt-BR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (pt-BR, FranciscaNeural)
+- <strong>ShortName:</strong> pt-BR-FranciscaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> pt-BR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (pt-PT, DuarteNeural)
+- <strong>ShortName:</strong> pt-PT-DuarteNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> pt-PT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (pt-PT, RaquelNeural)
+- <strong>ShortName:</strong> pt-PT-RaquelNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> pt-PT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ro-RO, AlinaNeural)
+- <strong>ShortName:</strong> ro-RO-AlinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ro-RO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ro-RO, EmilNeural)
+- <strong>ShortName:</strong> ro-RO-EmilNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ro-RO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ru-RU, DmitryNeural)
+- <strong>ShortName:</strong> ru-RU-DmitryNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ru-RU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ru-RU, SvetlanaNeural)
+- <strong>ShortName:</strong> ru-RU-SvetlanaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ru-RU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sr-RS, NicholasNeural)
+- <strong>ShortName:</strong> sr-RS-NicholasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> sr-RS
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sr-RS, SophieNeural)
+- <strong>ShortName:</strong> sr-RS-SophieNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> sr-RS
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (si-LK, SameeraNeural)
+- <strong>ShortName:</strong> si-LK-SameeraNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> si-LK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (si-LK, ThiliniNeural)
+- <strong>ShortName:</strong> si-LK-ThiliniNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> si-LK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sk-SK, LukasNeural)
+- <strong>ShortName:</strong> sk-SK-LukasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> sk-SK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sk-SK, ViktoriaNeural)
+- <strong>ShortName:</strong> sk-SK-ViktoriaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> sk-SK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sl-SI, PetraNeural)
+- <strong>ShortName:</strong> sl-SI-PetraNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> sl-SI
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sl-SI, RokNeural)
+- <strong>ShortName:</strong> sl-SI-RokNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> sl-SI
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (so-SO, MuuseNeural)
+- <strong>ShortName:</strong> so-SO-MuuseNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> so-SO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (so-SO, UbaxNeural)
+- <strong>ShortName:</strong> so-SO-UbaxNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> so-SO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-AR, ElenaNeural)
+- <strong>ShortName:</strong> es-AR-ElenaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-AR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-AR, TomasNeural)
+- <strong>ShortName:</strong> es-AR-TomasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-AR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-BO, MarceloNeural)
+- <strong>ShortName:</strong> es-BO-MarceloNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-BO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-BO, SofiaNeural)
+- <strong>ShortName:</strong> es-BO-SofiaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-BO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CL, CatalinaNeural)
+- <strong>ShortName:</strong> es-CL-CatalinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-CL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CL, LorenzoNeural)
+- <strong>ShortName:</strong> es-CL-LorenzoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-CL
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CO, GonzaloNeural)
+- <strong>ShortName:</strong> es-CO-GonzaloNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-CO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CO, SalomeNeural)
+- <strong>ShortName:</strong> es-CO-SalomeNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-CO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CR, JuanNeural)
+- <strong>ShortName:</strong> es-CR-JuanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-CR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CR, MariaNeural)
+- <strong>ShortName:</strong> es-CR-MariaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-CR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CU, BelkysNeural)
+- <strong>ShortName:</strong> es-CU-BelkysNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-CU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-CU, ManuelNeural)
+- <strong>ShortName:</strong> es-CU-ManuelNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-CU
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-DO, EmilioNeural)
+- <strong>ShortName:</strong> es-DO-EmilioNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-DO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-DO, RamonaNeural)
+- <strong>ShortName:</strong> es-DO-RamonaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-DO
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-EC, AndreaNeural)
+- <strong>ShortName:</strong> es-EC-AndreaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-EC
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-EC, LuisNeural)
+- <strong>ShortName:</strong> es-EC-LuisNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-EC
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-SV, LorenaNeural)
+- <strong>ShortName:</strong> es-SV-LorenaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-SV
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-SV, RodrigoNeural)
+- <strong>ShortName:</strong> es-SV-RodrigoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-SV
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-GQ, JavierNeural)
+- <strong>ShortName:</strong> es-GQ-JavierNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-GQ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-GQ, TeresaNeural)
+- <strong>ShortName:</strong> es-GQ-TeresaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-GQ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-GT, AndresNeural)
+- <strong>ShortName:</strong> es-GT-AndresNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-GT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-GT, MartaNeural)
+- <strong>ShortName:</strong> es-GT-MartaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-GT
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-HN, CarlosNeural)
+- <strong>ShortName:</strong> es-HN-CarlosNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-HN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-HN, KarlaNeural)
+- <strong>ShortName:</strong> es-HN-KarlaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-HN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-MX, DaliaNeural)
+- <strong>ShortName:</strong> es-MX-DaliaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-MX
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-MX, JorgeNeural)
+- <strong>ShortName:</strong> es-MX-JorgeNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-MX
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-MX, LorenzoEsCLNeural)
+- <strong>ShortName:</strong> es-MX-LorenzoEsCLNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-MX
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-NI, FedericoNeural)
+- <strong>ShortName:</strong> es-NI-FedericoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-NI
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-NI, YolandaNeural)
+- <strong>ShortName:</strong> es-NI-YolandaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-NI
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PA, MargaritaNeural)
+- <strong>ShortName:</strong> es-PA-MargaritaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-PA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PA, RobertoNeural)
+- <strong>ShortName:</strong> es-PA-RobertoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-PA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PY, MarioNeural)
+- <strong>ShortName:</strong> es-PY-MarioNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-PY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PY, TaniaNeural)
+- <strong>ShortName:</strong> es-PY-TaniaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-PY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PE, AlexNeural)
+- <strong>ShortName:</strong> es-PE-AlexNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-PE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PE, CamilaNeural)
+- <strong>ShortName:</strong> es-PE-CamilaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-PE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PR, KarinaNeural)
+- <strong>ShortName:</strong> es-PR-KarinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-PR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-PR, VictorNeural)
+- <strong>ShortName:</strong> es-PR-VictorNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-PR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-ES, AlvaroNeural)
+- <strong>ShortName:</strong> es-ES-AlvaroNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-ES
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-ES, ElviraNeural)
+- <strong>ShortName:</strong> es-ES-ElviraNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-ES
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-ES, ManuelEsCUNeural)
+- <strong>ShortName:</strong> es-ES-ManuelEsCUNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-ES
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-US, AlonsoNeural)
+- <strong>ShortName:</strong> es-US-AlonsoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-US, PalomaNeural)
+- <strong>ShortName:</strong> es-US-PalomaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-US
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-UY, MateoNeural)
+- <strong>ShortName:</strong> es-UY-MateoNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-UY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-UY, ValentinaNeural)
+- <strong>ShortName:</strong> es-UY-ValentinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-UY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-VE, PaolaNeural)
+- <strong>ShortName:</strong> es-VE-PaolaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> es-VE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (es-VE, SebastianNeural)
+- <strong>ShortName:</strong> es-VE-SebastianNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> es-VE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (su-ID, JajangNeural)
+- <strong>ShortName:</strong> su-ID-JajangNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> su-ID
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (su-ID, TutiNeural)
+- <strong>ShortName:</strong> su-ID-TutiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> su-ID
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sw-KE, RafikiNeural)
+- <strong>ShortName:</strong> sw-KE-RafikiNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> sw-KE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sw-KE, ZuriNeural)
+- <strong>ShortName:</strong> sw-KE-ZuriNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> sw-KE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sw-TZ, DaudiNeural)
+- <strong>ShortName:</strong> sw-TZ-DaudiNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> sw-TZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sw-TZ, RehemaNeural)
+- <strong>ShortName:</strong> sw-TZ-RehemaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> sw-TZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sv-SE, MattiasNeural)
+- <strong>ShortName:</strong> sv-SE-MattiasNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> sv-SE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (sv-SE, SofieNeural)
+- <strong>ShortName:</strong> sv-SE-SofieNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> sv-SE
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-IN, PallaviNeural)
+- <strong>ShortName:</strong> ta-IN-PallaviNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ta-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-IN, ValluvarNeural)
+- <strong>ShortName:</strong> ta-IN-ValluvarNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ta-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-MY, KaniNeural)
+- <strong>ShortName:</strong> ta-MY-KaniNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ta-MY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-MY, SuryaNeural)
+- <strong>ShortName:</strong> ta-MY-SuryaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ta-MY
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-SG, AnbuNeural)
+- <strong>ShortName:</strong> ta-SG-AnbuNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ta-SG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-SG, VenbaNeural)
+- <strong>ShortName:</strong> ta-SG-VenbaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ta-SG
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-LK, KumarNeural)
+- <strong>ShortName:</strong> ta-LK-KumarNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ta-LK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ta-LK, SaranyaNeural)
+- <strong>ShortName:</strong> ta-LK-SaranyaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ta-LK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (te-IN, MohanNeural)
+- <strong>ShortName:</strong> te-IN-MohanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> te-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (te-IN, ShrutiNeural)
+- <strong>ShortName:</strong> te-IN-ShrutiNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> te-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (th-TH, NiwatNeural)
+- <strong>ShortName:</strong> th-TH-NiwatNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> th-TH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (th-TH, PremwadeeNeural)
+- <strong>ShortName:</strong> th-TH-PremwadeeNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> th-TH
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (tr-TR, AhmetNeural)
+- <strong>ShortName:</strong> tr-TR-AhmetNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> tr-TR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (tr-TR, EmelNeural)
+- <strong>ShortName:</strong> tr-TR-EmelNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> tr-TR
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (uk-UA, OstapNeural)
+- <strong>ShortName:</strong> uk-UA-OstapNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> uk-UA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (uk-UA, PolinaNeural)
+- <strong>ShortName:</strong> uk-UA-PolinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> uk-UA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ur-IN, GulNeural)
+- <strong>ShortName:</strong> ur-IN-GulNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ur-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ur-IN, SalmanNeural)
+- <strong>ShortName:</strong> ur-IN-SalmanNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ur-IN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ur-PK, AsadNeural)
+- <strong>ShortName:</strong> ur-PK-AsadNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> ur-PK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (ur-PK, UzmaNeural)
+- <strong>ShortName:</strong> ur-PK-UzmaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> ur-PK
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (uz-UZ, MadinaNeural)
+- <strong>ShortName:</strong> uz-UZ-MadinaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> uz-UZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (uz-UZ, SardorNeural)
+- <strong>ShortName:</strong> uz-UZ-SardorNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> uz-UZ
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (vi-VN, HoaiMyNeural)
+- <strong>ShortName:</strong> vi-VN-HoaiMyNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> vi-VN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (vi-VN, NamMinhNeural)
+- <strong>ShortName:</strong> vi-VN-NamMinhNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> vi-VN
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (cy-GB, AledNeural)
+- <strong>ShortName:</strong> cy-GB-AledNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> cy-GB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (cy-GB, NiaNeural)
+- <strong>ShortName:</strong> cy-GB-NiaNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> cy-GB
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zu-ZA, ThandoNeural)
+- <strong>ShortName:</strong> zu-ZA-ThandoNeural
+- <strong>Gender:</strong> Female
+- <strong>Locale:</strong> zu-ZA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+<p><strong>Name:</strong> Microsoft Server Speech Text to Speech Voice (zu-ZA, ThembaNeural)
+- <strong>ShortName:</strong> zu-ZA-ThembaNeural
+- <strong>Gender:</strong> Male
+- <strong>Locale:</strong> zu-ZA
+- <strong>Voice Tag:</strong> {<strong>'Content Categories:'</strong> ['General'], <strong>'VoicePersonalities':</strong> ['Friendly', 'Positive']}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

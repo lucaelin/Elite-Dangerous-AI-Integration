@@ -1,0 +1,652 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lucaelin.github.io/elite-dangerous-ai-integration/xtts/VoiceClone-and-XTTS-Setup/">
+      
+      
+        <link rel="prev" href="../../freeSetup/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Note - COVAS:NEXT</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#note" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="COVAS:NEXT" class="md-header__button md-logo" aria-label="COVAS:NEXT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            COVAS:NEXT
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Note
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="COVAS:NEXT" class="md-nav__button md-logo" aria-label="COVAS:NEXT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    COVAS:NEXT
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    COVAS:NEXT - Elite:Dangerous AI Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aiToolList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    List of supported AI Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../edgeTTSVoices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    edgeTTSVoices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../freeSetup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started for "free"
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Xtts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Xtts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Note
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="note">Note</h1>
+<p>You can skip to the bottom if you simply want to use an existing XTTS voice model.</p>
+<h1 id="preamble">Preamble</h1>
+<p>Hey commanders, welcome back from the black. After struggling for an unreasonable amount of time, I have finally managed to get Covas set up with the specific voice that I want. I figured that with the pain I went through to accomplish that, I would make a bit of a guide documenting my set up and how I accomplished it. It is likely far from ideal, and there are probably easier methods, but this is how I did it.</p>
+<p>As a note, we are going to be using WSL and windows for this, but all of the software runs on linux as well, this should work there as well.</p>
+<p>Firstly, we are going to need to set up our environment. We are going to head into control panel, then into programs, then "Turn Windows Features On or Off." In this menu, we want to enable both Virtual Machine Platform and Windows Subsystem for Linux. If this is your first time enabling them, you may need to restart after this step. </p>
+<p>Next we are going to head over to docker.com and download the installer. As I already have it set up, I wont be running through the install process in detail here. The only thing to note is that, when you are installing it, make certain to have the box checked to use WSL2 as your backend. Once you have it installed, you may need to log out or restart.</p>
+<p>We are now going to set up what you will be using to train your voice model: The <a href="https://github.com/erew123/alltalk_tts/wiki/Install-%E2%80%90-Standalone-Installation">Alltalk V2</a> beta.</p>
+<h1 id="training">Training</h1>
+<p>This section is for if you want to train your own model. Ignore and move on if you have your own model!</p>
+<details><summary>Click here to show training instructions. Expect scuff ahead.</summary>
+
+## Setting up Alltalk
+ Before installing AllTalk, ensure you have the following:
+
+* Git for cloning GitHub repositories. 
+* Microsoft C++ Build Tools and Windows SDK for proper Python functionality. [Installation instructions](https://github.com/erew123/alltalk_tts/wiki/Install-%E2%80%90-WINDOWS-%E2%80%90-Python-C-&-SDK-Requirements)
+* Espeak-ng for multiple TTS engines to function. [Installation instructions](https://github.com/erew123/alltalk_tts/wiki/Install-%E2%80%90-WINDOWS-%E2%80%90-Espeak%E2%80%90ng)
+
+ If you already have these installed, you can proceed directly to the Quick Setup instructions.
+
+Open Command Prompt and navigate to your preferred directory:
+
+    cd /d C:\path\to\your\preferred\directory
+
+Clone the AllTalk repository:
+
+    git clone -b alltalkbeta https://github.com/erew123/alltalk_tts
+
+Navigate to the AllTalk directory:
+
+    cd alltalk_tts
+
+Run the setup script:
+
+    atsetup.bat
+
+ Follow the on-screen prompts:
+  * Select Standalone Installation and then Option 1.
+  * Follow any additional instructions to install required files.
+
+## Step One: Creating samples for our dataset
+ From here we are ready to begin creating our voice model. The first thing you will want to do is get a wav file of the voice you want to clone and place it in the voices folder of your Alltalk installation. An important thing to note here is that you typically want a minimum of 2 minutes of total audio samples (Alltalk won't even allow you to proceed without this minimum met). If you have enough audio of the voice you want to train, you can skip the first portion and go stright to training. That is typically pretty easy to meet if you have the dumped audio files for a character from a game, as an exmaple. 
+
+ <details><summary>Screenshot</summary>
+
+![](screenshots/voice-sample-dir.png?raw=true)
+
+</details>
+
+ From here, you are going to start the Alltalk server. This can be done by either opening the start_alltalk.bat file in the folder you cloned, or by opening a command prompt, CDing into the directory and running the bat file this way. By default, you will be connecting to http://127.0.0.1:7852/ to access the webui. But what we really want is the TTS generator, which is by default at http://127.0.0.1:7851/static/tts_generator/tts_generator.html
+
+ We will be using this to generate what we need for our dataset. Included in this repository, you will find a collection of prompts in various languages, pulled from the [Piper Recording Studio](https://github.com/rhasspy/piper-recording-studio) repo, leading digits stripped from them. Grab all three files from the language of your choice, English in my case, and drop them in the Text Input section of the generator. Each line should have a single sentence.
+
+ Next, we want to set the chunk size to 1, playback to none, and the Character voice to your choice. In my case, I am using Reed, from Arknights. Our settings set, we hit generate and wait for it to finish. Once it is done, we can go ahead and stop the Alltalk server.
+
+ <details><summary>Screenshot</summary>
+
+![](screenshots/genvoice.png?raw=true)
+
+</details>
+
+## Step Two: Its time for our Anime Training Arc!
+ Now that we have our samples, we are going to move on to training. We now want to go back to our Alltalk directory. Because we have 1150 samples, it is best that we transfer them first, then begin the dataset creation. The TTS generator will have put them in the outputs folder. We want to copy them to the finetune/put-voice-samples-in-here folder, as shown below. 
+
+ <details><summary>Screenshot</summary>
+
+![](screenshots/move.png?raw=true)
+
+</details>
+
+ Next up we want to run the start_finetune.bat file to start the trainer. Once its finished loading, it should automatically open itself in a browser window. If it does not, you can use http://127.0.0.1:7052/ to access it. By default it will open to a status page, show below. You want to make certain all of the boxes are green. If they are not, there are tabs along the top that _should_ will give you more info on how to resolve those issues.
+
+<details><summary>Screenshot</summary>
+
+![](screenshots/finetunestatus.png?raw=true)
+
+</details>
+
+ Next up, we are moving to step one. Because we already moved our audio samples beforehand, all we need to do here is fill in the project name and hit Create Dataset at the bottom.
+
+<details><summary>Screenshot</summary>
+
+![](screenshots/step1.png?raw=true)
+
+</details>
+
+When we move over to step two, the fields should have autopopulated the appropriate data for your dataset, so all we need to do here is make sure our project name is correct, and hit Run the Training. I don't know nearly enough about the underlying nonsense that is AI training to advise on what settings are optimal, so I left them all the same and it turned out quite well. It took me about an hour to train 10 epochs with my setup. 
+
+<details><summary>Screenshot</summary>
+
+![](screenshots/step2.png?raw=true)
+
+</details>
+
+ Once its finished, head over to step three. Put the project name in the top right text box, click Refresh, load, set a prompt and then hit generate to get a sample of your model.
+
+<details><summary>Screenshot</summary>
+
+![](screenshots/step3.png?raw=true)
+
+</details>
+
+ If you aren't quite happy, and want to continue training, you can head back to step two, and in the model option, select the previous model, rather than xtts.
+
+<details><summary>Screenshot</summary>
+
+![](screenshots/unhappy.png?raw=true)
+
+</details>
+
+If you are happy, head over to the final tab. Enter your project name, refresh dropdowns, select the model you are happy with and set your folder name. The compact and move button will move the model to your alltalk/models/xtts folder.
+
+<details><summary>Screenshot</summary>
+
+![](screenshots/happy.png?raw=true)
+
+</details>
+
+</details>
+
+<h1 id="setting-up-an-openai-compatable-tts-server-than-can-use-xtts-models">Setting up an OpenAI compatable TTS server than can use XTTS models</h1>
+<h2 id="preparing-for-openedai-speech">Preparing for OpenedAI Speech</h2>
+<p>The server we will be using here is <a href="https://github.com/matatonic/openedai-speech">OpenedAI Speech</a>. We're gonna start by opening a WSL terminal from the command prompt, cloning the repo and enter the folder:</p>
+<pre><code>wsl -d Ubuntu
+git clone https://github.com/matatonic/openedai-speech
+cd openedai-speech
+</code></pre>
+<details><summary>OpenedAI Speech Dir</summary>
+
+![](screenshots/openedai.png?raw=true)
+
+</details>
+
+<p>Now that we have it cloned, lets go ahead and start the server once to pre-download all of the included models and generate the default configuration files. This will also download all of the sample wavs for the pre-configured voices.</p>
+<pre><code>docker compose up
+</code></pre>
+<details><summary>OpenedAI First Run</summary>
+
+![](screenshots/openedfirstrun.png?raw=true)
+
+</details>
+
+<p>Now we want to make a copy of sample.env and rename it speech.env. It may also a good idea to edit speech.env and uncomment one of the lines to preload XTTS. You will only want to set one model to preload. If you are using a non-nvidia GPU, you can uncomment the USE_ROCM line. I don't have a non-nvidia card, so I cannot attest to its performance. In addtion, the below includes two models with preload to display that you can specify older versions of models. XTTS and XTTS_V2.0.2 being the latest and older version respectively in this instance.</p>
+<p>```
+TTS_HOME=voices
+HF_HOME=voices
+PRELOAD_MODEL=xtts</p>
+<h1 id="preload_modelxtts_v202">PRELOAD_MODEL=xtts_v2.0.2</h1>
+<h1 id="extra_args-log-level-debug-unload-timer-300">EXTRA_ARGS=--log-level DEBUG --unload-timer 300</h1>
+<h1 id="use_rocm1">USE_ROCM=1</h1>
+<pre><code>
+ If you have your own model, you will want to copy it into the voices/tts folder. In order to prepare the setup
+
+ We then want to open the voice_to_speaker.yaml in the config folder and add the model beneath the tts-1-hd heading. You can also place a wav file in the voices folder and map it to one of the default voices. An example of both is included in the screenshot below. 
+
+&lt;details&gt;&lt;summary&gt;OpenedAI Speech Dir&lt;/summary&gt;
+
+![](screenshots/configyaml.png?raw=true)
+
+&lt;/details&gt;
+
+With everything set up, we can go ahead and restart the server with the same command from above.
+
+&lt;details&gt;&lt;summary&gt;OpenedAI running in docker&lt;/summary&gt;
+
+![](screenshots/dockerterm.png?raw=true)
+
+&lt;/details&gt;
+
+# Covas
+ [Download Covas Here!](https://github.com/RatherRude/Elite-Dangerous-AI-Integration)
+
+ Now that we have the server up and running, we can setup Covas to use it.
+ ```
+ TTS Model Name: tts-1-hd
+ TTS Endpoint: http://127.0.0.1:8000/v1
+ ```
+
+ For your TTS voice, it is going to be what is set in the voice_to_speaker.yaml file. As examples:
+
+ ```
+   shimmer:
+    model: xtts
+    speaker: voices/shimmer.wav
+  reed:
+    model: reed # This name is required to be unique
+    speaker: voices/tts/reed/sample.wav # voice sample is required
+    model_path: voices/tts/reed
+</code></pre>
+<p>If I enter shimmer, Covas will use the pre-configured shimmer voice. If I use reed, it will use my custom Reed model.</p>
+<details><summary>Covas TTS settings</summary>
+
+![](screenshots/covastts.png?raw=true)
+
+</details>
+
+<h1 id="potential-issue-with-alltalk">Potential issue with Alltalk</h1>
+<p>While setting up Alltalk, I ran into an issue with it not finding a DLL, specifically cudnn_cnn64_9.dll, despite it being in the alltalk env. To resolve the issue, I had to add the correct folder to my environment variables. You can do so by going to System &gt; About &gt; Advanced System Settings &gt; Environment Variables &gt; Path &gt; New and then add the correct folder, where ever they may be for you.</p>
+<details><summary>Environment Variable</summary>
+
+![](screenshots/sysvar.png?raw=true)
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
