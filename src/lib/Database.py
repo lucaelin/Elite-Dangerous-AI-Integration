@@ -160,3 +160,50 @@ class KeyValueStore():
             DELETE FROM {self.table_name}
         ''')
         self.conn.commit()
+
+@final
+class LoggingStore():
+    def __init__(self, store_name: str, max_age_sec: int | None = None, max_entries: int | None = None):
+        self.conn = get_connection()
+        self.cursor = self.conn.cursor()
+        self.store_name = store_name
+        self.table_name = f'{store_name}_v1'
+        self.max_age_sec = max_age_sec
+        self.max_entries = max_entries
+        
+        self.cursor.execute(f'''
+            CREATE TABLE IF NOT EXISTS {self.table_name} (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                data TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        
+    def clean_up(self):
+        if self.max_age_sec:
+            self.cursor.execute(f'''
+                DELETE FROM {self.table_name}
+                WHERE created_at < datetime('now', ?)
+            ''', (f"-{self.max_age_sec} seconds",))
+        
+        if self.max_entries:
+            self.cursor.execute(f'''
+                DELETE FROM {self.table_name}
+                WHERE id NOT IN (
+                    SELECT id
+                    FROM {self.table_name}
+                    ORDER BY id DESC
+                    LIMIT {self.max_entries}
+                )
+            ''')
+        
+        self.conn.commit()
+        
+    def log(self, data: Any) -> None:
+        _ = self.cursor.execute(f'''
+            INSERT INTO {self.table_name} (data)
+            VALUES (?)
+        ''', (json.dumps(data),))
+        self.conn.commit()
+        self.clean_up()
+    

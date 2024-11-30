@@ -1,15 +1,19 @@
+import dataclasses
+from datetime import datetime
 import io
 import json
 import sys
 from pathlib import Path
 import traceback
+from typing import Any
 
 from openai import OpenAI
 
 from lib.Config import Config, get_ed_appdata_path, get_ed_journals_path
 from lib.ActionManager import ActionManager
-from lib.Actions import register_actions
+from lib.Actions import register_actions, screenshot
 from lib.ControllerManager import ControllerManager
+from lib.Database import LoggingStore
 from lib.EDCoPilot import EDCoPilot
 from lib.EDKeys import EDKeys
 from lib.Event import Event
@@ -35,6 +39,8 @@ ttsClient = None
 visionClient = None
 
 action_manager = ActionManager()
+reply_logger = LoggingStore('reply_logger')
+screen_logger = LoggingStore('reply_logger')
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
@@ -52,20 +58,43 @@ def reply(client, events: list[Event], new_events: list[Event], projected_states
           event_manager: EventManager, tts: TTS, copilot: EDCoPilot):
     global is_thinking
     is_thinking = True
+    
+    interaction_log: dict[str, Any] = {
+        "startTime": datetime.now().isoformat(),
+        "source": {
+            "events": [dataclasses.asdict(event) for event in events],
+            "new_events": [dataclasses.asdict(event) for event in new_events],
+            "projected_states": projected_states
+        },
+    }
+    
     prompt = prompt_generator.generate_prompt(events=events, projected_states=projected_states, pending_events=new_events)
 
     use_tools = useTools and any([event.kind == 'user' for event in new_events])
+    tools = action_manager.getToolsList() if use_tools else None
     reasons = [event.content.get('event', event.kind) if event.kind=='game' else event.kind for event in new_events if event.kind in ['user', 'game', 'tool', 'status']]
 
+    interaction_log["request"] = {
+        "model": llm_model_name,
+        "tools": tools,
+        "messages": prompt,
+    }
+    
     completion = client.chat.completions.create(
         model=llm_model_name,
         messages=prompt,
-        tools=action_manager.getToolsList() if use_tools else None
+        tools=tools,
     )
+    
+    interaction_log["response"] = {
+        "completion": completion.dict(),
+        "completionTime": datetime.now().isoformat(),
+    }
 
     if hasattr(completion, 'error'):
         log("error", "completion with error:", completion)
         is_thinking = False
+        reply_logger.log(interaction_log)
         return
     log("Debug", f'Prompt: {completion.usage.prompt_tokens}, Completion: {completion.usage.completion_tokens}')
 
@@ -83,8 +112,14 @@ def reply(client, events: list[Event], new_events: list[Event], projected_states
             action_result = action_manager.runAction(action)
             action_results.append(action_result)
 
+        interaction_log["actions"] = {
+            "input": [action.dict() for action in response_actions],
+            "output": action_results,
+        }
         event_manager.add_tool_call([tool_call.dict() for tool_call in response_actions], action_results)
 
+    interaction_log["finsihTime"] = datetime.now().isoformat()
+    reply_logger.log(interaction_log)
 
 useTools = False
 
@@ -206,12 +241,14 @@ def main():
     counter = 0
     while True:
         try:
+            screen = False
             counter += 1
 
             # check status file for updates
             while not status_parser.status_queue.empty():
                 status = status_parser.status_queue.get()
                 event_manager.add_status_event(status)
+                screen = True
 
             # check STT recording
             if stt.recording:
@@ -230,16 +267,34 @@ def main():
                 tts.abort()
                 copilot.output_commander(text)
                 event_manager.add_conversation_event('user', text)
+                screen = True
 
             if not is_thinking and not tts.get_is_playing() and event_manager.is_replying:
                 event_manager.add_assistant_complete_event()
+                screen = True
 
             # check EDJournal files for updates
             while not jn.events.empty():
                 event = jn.events.get()
                 event_manager.add_game_event(event)
+                screen = True
 
             event_manager.process()
+            
+            if screen:
+                import base64
+                from io import BytesIO
+                
+                image = screenshot()
+                if image:
+                    buffered = BytesIO()
+                    image.save(buffered, format="JPEG")
+                    img_str = base64.b64encode(buffered.getvalue())
+                    
+                    screen_logger.log({
+                        "screenshot": img_str,
+                        "time": datetime.now().isoformat()
+                    })
 
             # Infinite loops are bad for processors, must sleep.
             sleep(0.25)
