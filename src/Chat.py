@@ -40,7 +40,7 @@ visionClient = None
 
 action_manager = ActionManager()
 reply_logger = LoggingStore('reply_logger')
-screen_logger = LoggingStore('reply_logger')
+screen_logger = LoggingStore('screen_logger')
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
@@ -289,7 +289,7 @@ def main():
                 if image:
                     buffered = BytesIO()
                     image.save(buffered, format="JPEG")
-                    img_str = base64.b64encode(buffered.getvalue())
+                    img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
                     
                     screen_logger.log({
                         "screenshot": img_str,
