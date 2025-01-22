@@ -16,7 +16,13 @@ jobs:
           Expand-Archive -Path artifact.zip -Destination dist
 
       - name: List contents (debug)
-        run: dir dist
+        run: dir dist/AIGUI
+
+      - name: run gui
+        run: dist/AIGUI/AIGUI.exe
+        continue-on-error: true
+        timeout-minutes: 1
+        working-directory: dist
 
       - name: Windows Defender Scan
         run: |
