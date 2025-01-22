@@ -26,6 +26,9 @@ jobs:
       - name: Output scan results
         run: |
           Get-MpThreatDetection
+          $count = (Get-MpThreatDetection).Count
+
+          exit $count
 
       - name: Run e2e tests
         run: |
