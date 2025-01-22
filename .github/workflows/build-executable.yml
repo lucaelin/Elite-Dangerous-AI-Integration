@@ -18,6 +18,13 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
+      - name: Run GUI
+        run: |
+          & ".\dist\start.bat"
+        continue-on-error: true
+        timeout-minutes: 1
+        working-directory: dist\AIGUI
+
       - name: Windows Defender Scan
         run: |
           & "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
