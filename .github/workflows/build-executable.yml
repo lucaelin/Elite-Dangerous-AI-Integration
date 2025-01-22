@@ -20,7 +20,7 @@ jobs:
 
       - name: Run GUI
         run: |
-          cmd /c dist\start.bat
+          cmd /c start.bat
         continue-on-error: true
         timeout-minutes: 1
         working-directory: dist
