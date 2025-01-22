@@ -18,12 +18,11 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
-      - name: Run GUI
+      - name: Windows Defender Scan
         run: |
-          cmd /c start.bat
-        continue-on-error: true
-        timeout-minutes: 1
-        working-directory: dist
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\Chat\Chat.exe
 
       - name: Output scan results
         run: |
