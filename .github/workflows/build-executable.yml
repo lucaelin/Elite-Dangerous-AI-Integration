@@ -18,16 +18,14 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
-      - name: run gui
-        run: .\dist\AIGUI\AIGUI.exe
-        continue-on-error: true
-        timeout-minutes: 1
-        working-directory: dist
-
       - name: Windows Defender Scan
         run: |
           & "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
           & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist
+
+      - name: Output scan results
+        run: |
+          Get-MpThreatDetection
 
       - name: Run e2e tests
         run: |
