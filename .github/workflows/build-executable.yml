@@ -23,7 +23,7 @@ jobs:
           cmd /c dist\start.bat
         continue-on-error: true
         timeout-minutes: 1
-        working-directory: dist\AIGUI
+        working-directory: dist
 
       - name: Output scan results
         run: |
