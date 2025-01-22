@@ -18,6 +18,13 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
+      - name: Remove defender exclusions
+        run: |
+          Get-MpPreference
+          Remove-MpPreference -ExclusionPath $PWD
+          Remove-MpPreference -ExclusionPath $PWD\dist\AIGUI
+          Remove-MpPreference -ExclusionPath $PWD\dist\Chat
+
       - name: Windows Defender Scan
         run: |
           & "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
