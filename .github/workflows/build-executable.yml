@@ -20,7 +20,8 @@ jobs:
 
       - name: Remove defender exclusions
         run: |
-          Remove-MpPreference -ExclusionPath $PWD.Drive
+          # remove drive letter with :\ at the end
+          Remove-MpPreference -ExclusionPath $PWD.Drive.Root
           Remove-MpPreference -ExclusionPath $PWD
           Remove-MpPreference -ExclusionPath $PWD\dist\AIGUI
           Remove-MpPreference -ExclusionPath $PWD\dist\Chat
