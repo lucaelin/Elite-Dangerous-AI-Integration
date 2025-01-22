@@ -20,11 +20,11 @@ jobs:
 
       - name: Remove defender exclusions
         run: |
-          Get-MpPreference
           Remove-MpPreference -ExclusionPath $PWD.Drive
           Remove-MpPreference -ExclusionPath $PWD
           Remove-MpPreference -ExclusionPath $PWD\dist\AIGUI
           Remove-MpPreference -ExclusionPath $PWD\dist\Chat
+          Get-MpPreference
 
       - name: Windows Defender Scan
         run: |
