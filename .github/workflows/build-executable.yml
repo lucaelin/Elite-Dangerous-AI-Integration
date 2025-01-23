@@ -33,8 +33,8 @@ jobs:
 
       - name: Run MpCmdRun as SYSTEM in cmd using PsExec
         run: |
-          psexec.exe /dis cmd.exe /k "whoami"
-          psexec.exe /dis cmd.exe /k "C:\Program Files\Windows Defender\MpCmdRun.exe -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe"
+          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe /dis cmd.exe /k "whoami"
+          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe /dis cmd.exe /k "C:\Program Files\Windows Defender\MpCmdRun.exe -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe"
 
       - name: Output scan results
         # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
