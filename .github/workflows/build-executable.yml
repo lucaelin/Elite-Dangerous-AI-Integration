@@ -33,7 +33,7 @@ jobs:
 
       - name: Run MpCmdRun as SYSTEM in cmd using PsExec
         run: |
-          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe -accepteula /dis cmd.exe /k """C:\Program Files\Windows Defender\MpCmdRun.exe"" -Scan -ScanType 3 -File ""$PWD\dist\AIGUI\AIGUI.exe"" > C:\out.txt & echo Done > C:\done.txt & exit"  || & { "ignore failure"; $global:LASTEXITCODE = 0 }
+          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe -accepteula /dis cmd.exe /k """C:\Program Files\Windows Defender\MpCmdRun.exe"" -Scan -ScanType 3 -File ""D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\dist\AIGUI\AIGUI.exe"" > C:\out.txt & echo Done > C:\done.txt & exit"  || & { "ignore failure"; $global:LASTEXITCODE = 0 }
           echo "MpCmdRun Started"
           while (-not (Test-Path C:\done.txt)) { Start-Sleep -Seconds 1 }
           echo "MpCmdRun Finished"
