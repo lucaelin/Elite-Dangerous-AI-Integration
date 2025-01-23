@@ -18,21 +18,15 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
-      - name: Remove defender exclusions
-        run: |
-          # remove drive letter with :\ at the end
-          Remove-MpPreference -ExclusionPath $PWD.Drive.Root
-          Remove-MpPreference -ExclusionPath $PWD
-          Remove-MpPreference -ExclusionPath $PWD\dist\AIGUI
-          Remove-MpPreference -ExclusionPath $PWD\dist\Chat
-          Get-MpPreference
+      - run: |
+          Invoke-WebRequest https://secure.eicar.org/eicar.com -OutFile C:\eicar.com
+          Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
+        shell: powershell
 
-      - name: Windows Defender Scan
-        run: |
-          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
-          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe
-          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\Chat\Chat.exe
-          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD
+      - run: |
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File C:\eicar.com
+        shell: cmd
 
       - name: Output scan results
         run: |
