@@ -42,7 +42,6 @@ jobs:
       - name: Output scan results
         # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
         run: |
-          Get-Content C:\whoami.txt
           Get-Content C:\out.txt
           Get-MpThreatDetection
           $count = (Get-MpThreatDetection).Count
