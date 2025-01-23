@@ -23,12 +23,22 @@ jobs:
           Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
         shell: powershell
 
-      - name: Run Defender scan
+      - name: Show Defender Results
+        run: Get-MpThreatDetection
+        shell: powershell
+
+      - name: Update Defender signatures
         run: |
           "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe -DisableRemediation
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\Chat\Chat.exe -DisableRemediation
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD -DisableRemediation
+        shell: cmd
+
+      - name: Show Defender Results
+        run: Get-MpThreatDetection
+        shell: powershell
+
+      - name: Run Defender scan
+        run: |
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD
         shell: cmd
         continue-on-error: true
 
