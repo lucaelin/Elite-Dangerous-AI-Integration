@@ -18,21 +18,20 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
-      - run: |
-          $fileName = "$PWD\dist\AIGUI\AIGUI.exe"
+      - name: Configure Windows Defender
+        run: |
           Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
-          $taskName = "FileScan"
-          schtasks /create /tn $taskName /sc DAILY /st 13:00 /ru SYSTEM /rl HIGHEST /tr "'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 3 -File $fileName"
-          Start-ScheduledTask -TaskName $taskName
-          while ((Get-ScheduledTask -TaskName $taskName).State  -ne 'Ready') 
-          {
-              Start-Sleep -Seconds 1
-          }
-          Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational"
+        shell: powershell
+
+      - name: Run MpCmdRun as SYSTEM in cmd
+        run: |
+          Install-Module -Name Invoke-CommandAs -Force -AllowClobber -Scope CurrentUser
+          Invoke-CommandAs -ScriptBlock { & 'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 3 -File $env:TEMP\dist\AIGUI\AIGUI.exe } -RunAs SYSTEM
 
       - name: Output scan results
         # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
         run: |
+          Get-Content $env:TEMP\MpCmdRun.log
           Get-MpThreatDetection
           $count = (Get-MpThreatDetection).Count
 
