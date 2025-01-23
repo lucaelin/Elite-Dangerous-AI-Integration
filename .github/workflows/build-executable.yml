@@ -28,7 +28,7 @@ jobs:
           {
               Start-Sleep -Seconds 1
           }
-          Get-ScheduledTask -TaskName $taskName
+          Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational"
 
       - name: Output scan results
         # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
