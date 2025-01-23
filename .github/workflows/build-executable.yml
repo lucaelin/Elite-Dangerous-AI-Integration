@@ -25,7 +25,6 @@ jobs:
           $env:PATH += ";$PWD\pstools"
           echo $env:PATH
           dir $PWD\pstools
-          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe -accepteula
 
       - name: Configure Windows Defender
         run: |
@@ -34,7 +33,7 @@ jobs:
 
       - name: Run MpCmdRun as SYSTEM in cmd using PsExec
         run: |
-          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe /dis cmd.exe /k """C:\Program Files\Windows Defender\MpCmdRun.exe"" -Scan -ScanType 3 -File ""$PWD\dist\AIGUI\AIGUI.exe"" > C:\out.txt & echo Done > C:\done.txt & exit"
+          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe -accepteula /dis cmd.exe /k """C:\Program Files\Windows Defender\MpCmdRun.exe"" -Scan -ScanType 3 -File ""$PWD\dist\AIGUI\AIGUI.exe"" > C:\out.txt & echo Done > C:\done.txt & exit"
           while (-not (Test-Path C:\done.txt)) { Start-Sleep -Seconds 1 }
           Start-Sleep -Seconds 5
 
