@@ -26,7 +26,7 @@ jobs:
       - name: Run MpCmdRun as SYSTEM in cmd
         run: |
           Install-Module -Name Invoke-CommandAs -Force -AllowClobber -Scope CurrentUser
-          Invoke-CommandAs -ScriptBlock { & 'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 3 -File $env:TEMP\dist\AIGUI\AIGUI.exe } -RunAs SYSTEM
+          Invoke-CommandAs -ScriptBlock { & 'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 3 -File $env:TEMP\dist\AIGUI\AIGUI.exe } -AsSystem
 
       - name: Output scan results
         # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
