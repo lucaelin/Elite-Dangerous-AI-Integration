@@ -7,6 +7,50 @@ jobs:
     name: E2E Tests & Defender Scan in Fresh VM
     runs-on: windows-latest
     steps:
+      - name: Prepare Windows Defender
+        # https://github.com/actions/runner-images/issues/855#issuecomment-626692949 may help to understand
+        run: |
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -ListAllDynamicSignatures
+
+          # https://github.com/actions/runner-images/blob/61df9288f9be9f6aeaaaa4ad52a7332432913fc3/images/windows/scripts/build/Configure-WindowsDefender.ps1#L38-L44
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Advanced Threat Protection' -Name 'ForceDefenderPassiveMode' -Value '0' -Type 'DWORD'
+          Start-Service -DisplayName *Defend* -WhatIf
+          Start-Service -Name WinDefend
+
+          # Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender"
+          # Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet"
+          # I can't find any resource of this key in web also GitHub, but Copilot said... So testing in action runner may be interest :)
+          # Set-ItemProperty -Force -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" -Name JoinMicrosoftSpyNet -Value 1
+          # Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet"
+
+          # Remove cache: https://news.mynavi.jp/article/win10tips-410/
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -DynamicSignatures
+
+          # Enable cloud-based protection
+          Set-MpPreference -MAPSReporting Advanced
+          # Enable automatic sample submission
+          Set-MpPreference -SubmitSamplesConsent SendSafeSamples
+          # Restart-Service -Name WinDefend
+
+          Set-Service -Name wuauserv -StartupType Manual -Status Running
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
+          Update-MpSignature
+          # Restart-Service -Name WinDefend
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -ListAllDynamicSignatures
+
+          # Remove all exclusions
+          Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
+
+      - name: Make sure dynamic signatures are enabled ... or not
+        run: |
+          Get-MpComputerStatus
+
+          # Remove this to raise error if you REALIZED to enable Dynamic Signature scans
+          # if (!((& "C:\Program Files\Windows Defender\MpCmdRun.exe" -ListAllDynamicSignatures) | Select-String -Pattern "SignatureSet ID:")) {
+          #   Exit 42
+          # }
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -ListAllDynamicSignatures
+
       - name: Check out the repository
         uses: actions/checkout@v2
 
@@ -18,31 +62,20 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
-      - name: Install PsTools
+      - name: Run Windows Defender
         run: |
-          Invoke-WebRequest -Uri https://download.sysinternals.com/files/PSTools.zip -OutFile pstools.zip
-          Expand-Archive -Path pstools.zip -Destination pstools
-          $env:PATH += ";$PWD\pstools"
-          echo $env:PATH
-          dir $PWD\pstools
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist"
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist\AIGUI\AIGUI.exe"
+          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist\Chat\Chat.exe"
 
-      - name: Configure Windows Defender
-        run: |
-          Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
-        shell: powershell
+          # Do not enable this as possible, too slow ... Scanning all folders with this option? :<
+          # Start-MpScan -ScanPath "$pwd"
 
-      - name: Run MpCmdRun as SYSTEM in cmd using PsExec
-        run: |
-          D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\pstools\PsExec.exe -accepteula /dis cmd.exe /k """C:\Program Files\Windows Defender\MpCmdRun.exe"" -SignatureUpdate > C:\out.txt & ""C:\Program Files\Windows Defender\MpCmdRun.exe"" -Scan -ScanType 3 -File ""D:\a\Elite-Dangerous-AI-Integration\Elite-Dangerous-AI-Integration\dist\AIGUI\AIGUI.exe"" >> C:\out.txt & echo Done > C:\done.txt & exit"  || & { "ignore failure"; $global:LASTEXITCODE = 0 }
-          echo "MpCmdRun Started"
-          while (-not (Test-Path C:\done.txt)) { Start-Sleep -Seconds 1 }
-          echo "MpCmdRun Finished"
-          Start-Sleep -Seconds 5
+          Get-MpThreat
+          Get-MpThreatDetection
 
       - name: Output scan results
-        # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
         run: |
-          Get-Content C:\out.txt
           Get-MpThreatDetection
           $count = (Get-MpThreatDetection).Count
 
