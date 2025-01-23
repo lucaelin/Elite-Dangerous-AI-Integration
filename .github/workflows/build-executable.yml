@@ -18,20 +18,23 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
-      - run: |
-          Invoke-WebRequest https://secure.eicar.org/eicar.com -OutFile C:\eicar.com
+      - name: Configure Windows Defender
+        run: |
           Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
         shell: powershell
 
-      - run: |
+      - name: Run Defender scan
+        run: |
           "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
           "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe
           "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\Chat\Chat.exe
           "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD
         shell: cmd
+        continue-on-error: true
 
       - name: Output scan results
         run: |
+          Get-Content $env:TEMP\MpCmdRun.log
           Get-MpThreatDetection
           $count = (Get-MpThreatDetection).Count
 
