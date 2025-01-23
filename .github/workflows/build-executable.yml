@@ -24,7 +24,7 @@ jobs:
           # Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet"
 
           # Remove cache: https://news.mynavi.jp/article/win10tips-410/
-          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -DynamicSignatures
+          # & "C:\Program Files\Windows Defender\MpCmdRun.exe" -RemoveDefinitions -DynamicSignatures
 
           # Enable cloud-based protection
           Set-MpPreference -MAPSReporting Advanced
