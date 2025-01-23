@@ -30,6 +30,8 @@ jobs:
           Set-MpPreference -MAPSReporting Advanced
           # Enable automatic sample submission
           Set-MpPreference -SubmitSamplesConsent SendSafeSamples
+          # Enable behavior monitoring
+          Set-MpPreference -DisableBehaviorMonitoring $false
           # Restart-Service -Name WinDefend
 
           Set-Service -Name wuauserv -StartupType Manual -Status Running
