@@ -12,23 +12,23 @@ jobs:
 
       - name: Download build artifact
         run: |
-          $artifact = Invoke-WebRequest -Uri https://github.com/lucaelin/Elite-Dangerous-AI-Integration/actions/runs/12917999396/artifacts/2471168679 -OutFile artifact.zip
+          $artifact = Invoke-WebRequest -Uri https://github.com/RatherRude/Elite-Dangerous-AI-Integration/releases/download/v1.8.3/COVAS_NEXT_v1_8_3.zip -OutFile artifact.zip
           Expand-Archive -Path artifact.zip -Destination dist
 
       - name: List contents (debug)
         run: dir dist\AIGUI
 
-      - name: Configure Windows Defender
-        run: |
+      - run: |
+          $fileName = $PWD\dist\AIGUI\AIGUI.exe
           Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
-        shell: powershell
-
-      - name: Update Defender signatures
-        # Failed with hr = 0x80070002 means that a virus was detected (which is a bit counterintuitive)
-        run: |
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD
-        shell: cmd
+          $taskName = "FileScan"
+          schtasks /create /tn $taskName /sc DAILY /st 13:00 /ru SYSTEM /rl HIGHEST /tr "'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 3 -File $fileName"
+          Start-ScheduledTask -TaskName $taskName
+          while ((Get-ScheduledTask -TaskName $taskName).State  -ne 'Ready') 
+          {
+              Start-Sleep -Seconds 5
+          }
+          Get-MpThreatDetection
 
       - name: Output scan results
         # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
