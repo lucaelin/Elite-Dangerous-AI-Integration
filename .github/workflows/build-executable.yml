@@ -18,6 +18,12 @@ jobs:
       - name: List contents (debug)
         run: dir dist\AIGUI
 
+      - name: Install PsTools
+        run: |
+          Invoke-WebRequest -Uri https://download.sysinternals.com/files/PSTools.zip -OutFile pstools.zip
+          Expand-Archive -Path pstools.zip -Destination pstools
+          $env:PATH += ";$PWD\pstools"
+
       - name: Configure Windows Defender
         run: |
           Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
