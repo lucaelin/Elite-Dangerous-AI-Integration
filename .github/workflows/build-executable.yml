@@ -25,7 +25,9 @@ jobs:
 
       - run: |
           "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File C:\eicar.com
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\Chat\Chat.exe
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD
         shell: cmd
 
       - name: Output scan results
