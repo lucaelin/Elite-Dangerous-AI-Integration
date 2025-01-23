@@ -19,14 +19,14 @@ jobs:
         run: dir dist\AIGUI
 
       - run: |
-          $fileName = $PWD\dist\AIGUI\AIGUI.exe
+          $fileName = "$PWD\dist\AIGUI\AIGUI.exe"
           Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
           $taskName = "FileScan"
           schtasks /create /tn $taskName /sc DAILY /st 13:00 /ru SYSTEM /rl HIGHEST /tr "'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 3 -File $fileName"
           Start-ScheduledTask -TaskName $taskName
           while ((Get-ScheduledTask -TaskName $taskName).State  -ne 'Ready') 
           {
-              Start-Sleep -Seconds 5
+              Start-Sleep -Seconds 1
           }
           Get-MpThreatDetection
 
