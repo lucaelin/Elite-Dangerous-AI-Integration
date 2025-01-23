@@ -26,9 +26,9 @@ jobs:
       - name: Run Defender scan
         run: |
           "C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\Chat\Chat.exe
-          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe -DisableRemediation
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD\dist\Chat\Chat.exe -DisableRemediation
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -File $PWD -DisableRemediation
         shell: cmd
         continue-on-error: true
 
