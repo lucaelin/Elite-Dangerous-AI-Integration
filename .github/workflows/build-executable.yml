@@ -23,16 +23,18 @@ jobs:
           Invoke-WebRequest -Uri https://download.sysinternals.com/files/PSTools.zip -OutFile pstools.zip
           Expand-Archive -Path pstools.zip -Destination pstools
           $env:PATH += ";$PWD\pstools"
+          echo $env:PATH
+          dir $PWD\pstools
 
       - name: Configure Windows Defender
         run: |
           Remove-MpPreference -ExclusionPath (Get-MpPreference).ExclusionPath
         shell: powershell
 
-      - name: Run MpCmdRun as SYSTEM in cmd
+      - name: Run MpCmdRun as SYSTEM in cmd using PsExec
         run: |
-          psexec /dis cmd.exe /k "whoami"
-          psexec /dis cmd.exe /k "C:\Program Files\Windows Defender\MpCmdRun.exe -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe"
+          psexec.exe /dis cmd.exe /k "whoami"
+          psexec.exe /dis cmd.exe /k "C:\Program Files\Windows Defender\MpCmdRun.exe -Scan -ScanType 3 -File $PWD\dist\AIGUI\AIGUI.exe"
 
       - name: Output scan results
         # This is an additional step to check the MpThreatDetection, which in our tests did not work, but it's worth a try
