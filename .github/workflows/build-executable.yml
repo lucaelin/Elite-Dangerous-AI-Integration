@@ -61,17 +61,22 @@ jobs:
           $artifact = Invoke-WebRequest -Uri https://github.com/RatherRude/Elite-Dangerous-AI-Integration/releases/download/v1.8.3/COVAS_NEXT_v1_8_3.zip -OutFile artifact.zip
           Expand-Archive -Path artifact.zip -Destination dist
 
+      #- name: Download eicar
+      #  run: |
+      #    Invoke-WebRequest -Uri https://secure.eicar.org/eicar.com -OutFile dist\AIGUI\eicar.com
+      #    Invoke-WebRequest -Uri https://secure.eicar.org/eicar.com.txt -OutFile dist\Chat\eicar.com.txt
+
       - name: List contents (debug)
         run: dir dist\AIGUI
 
       - name: Run Windows Defender
         run: |
           & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist"
-          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist\AIGUI\AIGUI.exe"
-          & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist\Chat\Chat.exe"
+          # & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist\AIGUI\AIGUI.exe"
+          # & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist\Chat\Chat.exe"
 
           # Do not enable this as possible, too slow ... Scanning all folders with this option? :<
-          Start-MpScan -ScanPath "$pwd"
+          # Start-MpScan -ScanPath "$pwd\dist"
 
           Get-MpThreat
           Get-MpThreatDetection
