@@ -71,7 +71,7 @@ jobs:
           & "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -Trace -File "$(pwd)\dist\Chat\Chat.exe"
 
           # Do not enable this as possible, too slow ... Scanning all folders with this option? :<
-          # Start-MpScan -ScanPath "$pwd"
+          Start-MpScan -ScanPath "$pwd"
 
           Get-MpThreat
           Get-MpThreatDetection
