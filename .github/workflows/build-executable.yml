@@ -125,6 +125,7 @@ jobs:
           # Copy only the executable and resources folder
           Copy-Item -Path .\ui\src-tauri\target\release\covas-next-ui.exe -Destination .\simple-zip\
           Copy-Item -Path .\ui\src-tauri\target\release\resources -Destination .\simple-zip\ -Recurse
+          Copy-Item -Path .\ui\src-tauri\target\release\bundle\msi -Destination .\simple-zip\ -Recurse
 
       - name: Sign files with Azure
         uses: azure/trusted-signing-action@v0
@@ -136,10 +137,22 @@ jobs:
           trusted-signing-account-name: ${{ secrets.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
           certificate-profile-name: ${{ secrets.AZURE_CERTIFICATE_PROFILE_NAME }}
           files-folder: ${{ github.workspace }}\simple-zip
-          files-folder-filter: exe,dll
+          files-folder-filter: exe,dll,msi,msix
+          files-folder-recurse: true
+          files-folder-depth: 2
           file-digest: SHA256
           timestamp-rfc3161: http://timestamp.acs.microsoft.com
           timestamp-digest: SHA256
+
+      - name: Upload MSI Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: COVAS_NEXT_TAURI_v${{ github.sha }}_msi
+          path: .\simple-zip\msi
+
+      - name: Remove MSI from ZIP
+        run: |
+          Remove-Item -Path .\simple-zip\msi -Recurse
 
       - name: Upload simple zip file
         uses: actions/upload-artifact@v4
