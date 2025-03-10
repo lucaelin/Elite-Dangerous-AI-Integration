@@ -126,8 +126,6 @@ jobs:
           Copy-Item -Path .\ui\src-tauri\target\release\covas-next-ui.exe -Destination .\simple-zip\
           Copy-Item -Path .\ui\src-tauri\target\release\resources -Destination .\simple-zip\ -Recurse
 
-                - name: Sign files with Trusted Signing
-
       - name: Sign files with Azure
         uses: azure/trusted-signing-action@v0
         with:
