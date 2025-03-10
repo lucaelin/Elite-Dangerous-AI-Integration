@@ -126,6 +126,23 @@ jobs:
           Copy-Item -Path .\ui\src-tauri\target\release\covas-next-ui.exe -Destination .\simple-zip\
           Copy-Item -Path .\ui\src-tauri\target\release\resources -Destination .\simple-zip\ -Recurse
 
+                - name: Sign files with Trusted Signing
+
+      - name: Sign files with Azure
+        uses: azure/trusted-signing-action@v0
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: https://weu.codesigning.azure.net/
+          trusted-signing-account-name: ${{ secrets.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+          certificate-profile-name: ${{ secrets.AZURE_CERTIFICATE_PROFILE_NAME }}
+          files-folder: ${{ github.workspace }}\simple-zip
+          files-folder-filter: exe,dll
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
       - name: Upload simple zip file
         uses: actions/upload-artifact@v4
         with:
