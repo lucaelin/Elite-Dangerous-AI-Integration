@@ -1,4 +1,9 @@
+use chrono::Local;
+use serde_json::Value;
 use std::env;
+use std::fs::{File, OpenOptions};
+use std::io::Write;
+use std::path::PathBuf;
 use std::sync::Arc;
 use tauri::path::BaseDirectory;
 use tauri::Emitter;
@@ -20,6 +25,71 @@ const DEV_EXE_CWD: &str = "../..";
 const DEV_EXE_ARGS: &[&str] = &["-u", "./src/Chat.py"];
 
 const PROD_EXE_ARGS: &[&str] = &[];
+
+// Logger for application communication
+struct Logger {
+    file: Arc<Mutex<File>>,
+}
+
+impl Logger {
+    fn new(app_handle: &tauri::AppHandle) -> Result<Self, String> {
+        // Create logs directory in the app data directory
+        let log_dir = app_handle
+            .path()
+            .app_data_dir()
+            .map_err(|e| format!("Failed to get app data directory: {}", e))?;
+
+        std::fs::create_dir_all(&log_dir)
+            .map_err(|e| format!("Failed to create log directory: {}", e))?;
+
+        // Create log file with timestamp in filename
+        let timestamp = Local::now().format("%Y-%m-%d_%H-%M-%S").to_string();
+        let log_file_path = log_dir.join(format!("covas_log_{}.txt", timestamp));
+
+        let file = OpenOptions::new()
+            .create(true)
+            .write(true)
+            .append(true)
+            .open(&log_file_path)
+            .map_err(|e| format!("Failed to open log file: {}", e))?;
+
+        println!("Logging to: {}", log_file_path.display());
+
+        Ok(Logger {
+            file: Arc::new(Mutex::new(file)),
+        })
+    }
+
+    async fn log(&self, source: &str, message: &str) -> Result<(), String> {
+        let timestamp = Local::now().format("[%Y-%m-%d %H:%M:%S%.3f]").to_string();
+        let log_entry = format!("{} {}: {}\n", timestamp, source, message);
+
+        let mut file = self.file.lock().await;
+        file.write_all(log_entry.as_bytes())
+            .map_err(|e| format!("Failed to write to log file: {}", e))?;
+        file.flush()
+            .map_err(|e| format!("Failed to flush log file: {}", e))?;
+
+        Ok(())
+    }
+
+    // Helper function to redact sensitive information in messages
+    fn redact_sensitive_info(message: &str) -> String {
+        match serde_json::from_str::<Value>(message) {
+            Ok(json_value) => {
+                if let Some(msg_type) = json_value.get("type").and_then(|t| t.as_str()) {
+                    if msg_type == "change_config" {
+                        return "REDACTED: change_config".to_string();
+                    } else if msg_type == "config" {
+                        return "REDACTED: config".to_string();
+                    }
+                }
+                message.to_string()
+            }
+            Err(_) => message.to_string(), // If not valid JSON, return as is
+        }
+    }
+}
 
 fn get_exe_config(
     window: &tauri::Window,
@@ -60,16 +130,57 @@ struct ProcessHandle {
 #[derive(Default)]
 struct AppState {
     process_handle: Arc<tokio::sync::Mutex<Option<ProcessHandle>>>,
+    logger: Arc<Mutex<Option<Arc<Logger>>>>,
 }
 
 #[tauri::command]
 async fn start_process(window: tauri::Window, state: State<'_, AppState>) -> Result<(), String> {
+    // Initialize logger if it doesn't exist
+    {
+        let logger_lock = state.logger.lock().await;
+        if logger_lock.is_none() {
+            drop(logger_lock); // Release the lock before creating a new logger
+
+            // Create new logger
+            let logger = Logger::new(&window.app_handle())?;
+            let logger_arc = Arc::new(logger);
+
+            // Store logger in state
+            let mut logger_lock = state.logger.lock().await;
+            *logger_lock = Some(logger_arc);
+        }
+    }
+
+    // Get logger reference
+    let logger = {
+        let logger_lock = state.logger.lock().await;
+        logger_lock
+            .as_ref()
+            .expect("Logger should be initialized")
+            .clone()
+    };
+
+    // Log process start
+    logger.log("SYSTEM", "Starting process").await?;
+
     let mut proc_handle_lock = state.process_handle.lock().await;
     if proc_handle_lock.is_some() {
-        return Err("Process already running.".into());
+        let error_msg = "Process already running.";
+        logger.log("ERROR", error_msg).await?;
+        return Err(error_msg.into());
     }
 
     let (exe_path, exe_cwd, exe_args) = get_exe_config(&window)?;
+
+    logger
+        .log(
+            "SYSTEM",
+            &format!(
+                "Launching: {} in {} with args: {:?}",
+                exe_path, exe_cwd, exe_args
+            ),
+        )
+        .await?;
 
     let mut command = Command::new(exe_path.clone());
     command
@@ -77,7 +188,8 @@ async fn start_process(window: tauri::Window, state: State<'_, AppState>) -> Res
         .current_dir(exe_cwd.clone())
         .kill_on_drop(true)
         .stdin(std::process::Stdio::piped())
-        .stdout(std::process::Stdio::piped());
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped());
 
     #[cfg(windows)]
     {
@@ -86,16 +198,32 @@ async fn start_process(window: tauri::Window, state: State<'_, AppState>) -> Res
     }
 
     let mut child = command.spawn().map_err(|e| {
-        format!(
+        let error_msg = format!(
             "Failed to spawn process: {} - {} in {}",
             e, exe_path, exe_cwd
-        )
+        );
+        // We can't use .await in a closure used in .map_err, so log outside
+        format!("{}", error_msg)
     })?;
+
+    // Log successful process spawn
+    logger
+        .log(
+            "SYSTEM",
+            &format!("Process spawned with PID: {:?}", child.id()),
+        )
+        .await?;
+
     let stdout = child.stdout.take().ok_or("Failed to take child stdout")?;
     let stdin = child.stdin.take().ok_or("Failed to take child stdin")?;
+    let stderr = child.stderr.take().ok_or("Failed to take child stderr")?;
+
     let stdin = Arc::new(Mutex::new(stdin));
+
+    // Handle stdout
     tokio::spawn({
         let window = window.clone();
+        let logger = logger.clone();
         async move {
             let mut reader = BufReader::new(stdout);
             let mut buffer = Vec::new();
@@ -104,56 +232,195 @@ async fn start_process(window: tauri::Window, state: State<'_, AppState>) -> Res
                     Ok(0) => break, // EOF reached
                     Ok(_n) => {
                         if let Ok(text) = String::from_utf8(buffer.clone()) {
-                            println!("Process stdout: {}", text);
+                            let trimmed = text.trim_end();
+
+                            // Redact sensitive information before logging
+                            let log_message = Logger::redact_sensitive_info(trimmed);
+
+                            println!("Process stdout: {}", log_message);
+
+                            // Log redacted stdout to file
+                            if let Err(e) = logger.log("STDOUT", &log_message).await {
+                                eprintln!("Failed to log stdout: {}", e);
+                            }
+
+                            // Always emit the original text to the window
                             if let Err(e) = window.emit("process-stdout", text) {
                                 eprintln!("Failed to emit process-stdout event: {}", e);
+
+                                // Log emission error
+                                if let Err(log_err) = logger
+                                    .log(
+                                        "ERROR",
+                                        &format!("Failed to emit process-stdout event: {}", e),
+                                    )
+                                    .await
+                                {
+                                    eprintln!("Failed to log error: {}", log_err);
+                                }
                             }
                         } else {
-                            eprintln!("Received invalid UTF-8 data");
+                            let error_msg = "Received invalid UTF-8 data";
+                            eprintln!("{}", error_msg);
+
+                            // Log encoding error
+                            if let Err(e) = logger.log("ERROR", error_msg).await {
+                                eprintln!("Failed to log error: {}", e);
+                            }
                         }
                         buffer.clear();
                     }
                     Err(e) => {
-                        eprintln!("Error reading stdout: {}", e);
+                        let error_msg = format!("Error reading stdout: {}", e);
+                        eprintln!("{}", error_msg);
+
+                        // Log IO error
+                        if let Err(log_err) = logger.log("ERROR", &error_msg).await {
+                            eprintln!("Failed to log error: {}", log_err);
+                        }
                         break;
                     }
                 }
             }
+
+            // Log when stdout handling ends
+            if let Err(e) = logger.log("SYSTEM", "Process stdout stream ended").await {
+                eprintln!("Failed to log: {}", e);
+            }
         }
     });
+
+    // Handle stderr
+    tokio::spawn({
+        let logger = logger.clone();
+        async move {
+            let mut reader = BufReader::new(stderr);
+            let mut buffer = Vec::new();
+            loop {
+                match reader.read_until(b'\n', &mut buffer).await {
+                    Ok(0) => break, // EOF reached
+                    Ok(_n) => {
+                        if let Ok(text) = String::from_utf8(buffer.clone()) {
+                            let trimmed = text.trim_end();
+
+                            // Redact sensitive information before logging
+                            let log_message = Logger::redact_sensitive_info(trimmed);
+
+                            eprintln!("Process stderr: {}", log_message);
+
+                            // Log redacted stderr to file
+                            if let Err(e) = logger.log("STDERR", &log_message).await {
+                                eprintln!("Failed to log stderr: {}", e);
+                            }
+                        } else {
+                            eprintln!("Received invalid UTF-8 data from stderr");
+
+                            // Log encoding error
+                            if let Err(e) = logger
+                                .log("ERROR", "Received invalid UTF-8 data from stderr")
+                                .await
+                            {
+                                eprintln!("Failed to log error: {}", e);
+                            }
+                        }
+                        buffer.clear();
+                    }
+                    Err(e) => {
+                        let error_msg = format!("Error reading stderr: {}", e);
+                        eprintln!("{}", error_msg);
+
+                        // Log IO error
+                        if let Err(log_err) = logger.log("ERROR", &error_msg).await {
+                            eprintln!("Failed to log error: {}", log_err);
+                        }
+                        break;
+                    }
+                }
+            }
+
+            // Log when stderr handling ends
+            if let Err(e) = logger.log("SYSTEM", "Process stderr stream ended").await {
+                eprintln!("Failed to log: {}", e);
+            }
+        }
+    });
+
     let handle = ProcessHandle { child, stdin };
     *proc_handle_lock = Some(handle);
+
+    logger.log("SYSTEM", "Process started successfully").await?;
     Ok(())
 }
 
 #[tauri::command]
 async fn send_json_line(state: State<'_, AppState>, json_line: String) -> Result<(), String> {
+    // Get logger reference
+    let logger = {
+        let logger_lock = state.logger.lock().await;
+        logger_lock
+            .as_ref()
+            .ok_or("Logger not initialized")?
+            .clone()
+    };
+
+    // Redact sensitive information before logging
+    let log_message = Logger::redact_sensitive_info(&json_line);
+
+    // Log the message being sent to stdin (redacted if needed)
+    logger.log("STDIN", &log_message).await?;
+
     let stdin_arc = {
         let proc_handle_lock = state.process_handle.lock().await;
         let process = proc_handle_lock.as_ref().ok_or("Process is not running.")?;
         process.stdin.clone()
     };
+
     let mut stdin_guard = stdin_arc.lock().await;
     stdin_guard
         .write_all(json_line.as_bytes())
         .await
-        .map_err(|e| format!("Failed to write to stdin: {}", e))?;
-    stdin_guard
-        .flush()
-        .await
-        .map_err(|e| format!("Failed to flush stdin: {}", e))?;
-    println!("Wrote to stdin: {}", json_line);
+        .map_err(|e| {
+            let error_msg = format!("Failed to write to stdin: {}", e);
+            // We can't use .await in a closure used in .map_err, so return just the error
+            error_msg
+        })?;
+
+    stdin_guard.flush().await.map_err(|e| {
+        let error_msg = format!("Failed to flush stdin: {}", e);
+        error_msg
+    })?;
+
+    // Don't log potentially sensitive information to console either
+    println!("Wrote to stdin: {}", log_message);
     Ok(())
 }
 
 #[tauri::command]
 async fn stop_process(state: State<'_, AppState>) -> Result<(), String> {
+    // Get logger reference
+    let logger = {
+        let logger_lock = state.logger.lock().await;
+        if let Some(logger) = logger_lock.as_ref() {
+            logger.clone()
+        } else {
+            return Err("Logger not initialized".into());
+        }
+    };
+
+    logger.log("SYSTEM", "Stopping process").await?;
+
     let mut proc_handle_lock = state.process_handle.lock().await;
     if let Some(handle) = proc_handle_lock.as_mut() {
         if let Err(e) = handle.child.kill().await {
-            return Err(format!("Failed to kill process: {}", e));
+            let error_msg = format!("Failed to kill process: {}", e);
+            logger.log("ERROR", &error_msg).await?;
+            return Err(error_msg);
         }
+        logger.log("SYSTEM", "Process killed successfully").await?;
+    } else {
+        logger.log("SYSTEM", "No process running to stop").await?;
     }
+
     *proc_handle_lock = None;
     Ok(())
 }
@@ -215,6 +482,7 @@ pub async fn run() {
         .plugin(tauri_plugin_opener::init())
         .manage(AppState {
             process_handle: Arc::new(Mutex::new(None)),
+            logger: Arc::new(Mutex::new(None)),
         })
         .invoke_handler(tauri::generate_handler![
             start_process,
