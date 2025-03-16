@@ -249,10 +249,12 @@ pub async fn run() {
         ])
         .on_window_event(|window, event| {
             if let tauri::WindowEvent::CloseRequested { .. } = event {
+                info!("Window Close Requested...");
                 let handle = window.app_handle().clone();
                 tokio::spawn(async move {
                     let state: State<'_, AppState> = handle.state();
                     let _ = stop_process(state).await;
+                    info!("Subprocess stopped.");
                 });
             }
         })
@@ -267,5 +269,16 @@ pub async fn run() {
         .build(tauri::generate_context!())
         .expect("error while running tauri application");
 
-    app.run(|_app_handle, _event| {});
+    app.run(|app_handle, _event| match &_event {
+        tauri::RunEvent::ExitRequested { .. } => {
+            let handle = app_handle.clone();
+            info!("Application Exit Requested...");
+            tokio::spawn(async move {
+                let state: State<'_, AppState> = handle.state();
+                let _ = stop_process(state).await;
+                info!("Subprocess stopped.");
+            });
+        }
+        _ => (),
+    });
 }
