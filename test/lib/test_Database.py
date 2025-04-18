@@ -1,14 +1,6 @@
-import uu
-from uuid import uuid4
-import uuid
 import pytest
-import sqlite3
 from datetime import datetime
-import json
 from dataclasses import dataclass
-from pathlib import Path
-from unittest.mock import patch, MagicMock
-import numpy as np
 from src.lib.Database import EventStore, KeyValueStore, VectorStore, get_connection
 
 # Test event classes
@@ -162,22 +154,25 @@ def test_vector_store_init(vector_store, mock_connection):
 def test_vector_store_store_and_search(vector_store):
     """Test storing embeddings and searching for similar ones"""
     # Store some embeddings
-    vector_store.store(1, [1.0, 0.0, 0.0, 0.0], {"text": "Document 1"})
-    vector_store.store(2, [0.7, 0.7, 0.0, 0.0], {"text": "Document 2"})
-    vector_store.store(3, [0.0, 0.0, 1.0, 0.0], {"text": "Document 3"})
+    vector_store.store(1, [0.7, 0.7, 0.0, 0.0], {"text": "Document 1"})
+    vector_store.store(2, [0.0, 1.0, 0.0, 0.0], {"text": "Document 2"})
+    vector_store.store(3, [0.0, 0.0, 0.7, 0.7], {"text": "Document 3"})
     
     # Query for similar embeddings
-    results = vector_store.search([0.9, 0.1, 0.0, 0.0], 2)
+    results = vector_store.search([0.0, 1.0, 0.0, 0.0], 2)
     
     # Check results
-    assert len(results) <= 2  # We may get less than 2 because of our mocking
+    assert len(results) == 2
     
-    if len(results) > 0:
-        # Check format of results
-        assert len(results[0]) == 3
-        assert isinstance(results[0][0], int)  # id
-        assert isinstance(results[0][1], dict)  # metadata
-        assert isinstance(results[0][2], float)  # similarity score
+    # Check format of results
+    assert len(results[0]) == 3
+    assert isinstance(results[0][0], int)  # id
+    assert isinstance(results[0][1], dict)  # metadata
+    assert isinstance(results[0][2], float)  # similarity score
+    
+    assert results[0][0] == 2  # Closest match should be Document 2
+    assert results[0][1]["text"] == "Document 2"
+    assert results[1][0] == 1  # Next closest should be Document 1
 
 def test_vector_store_delete(vector_store):
     """Test deleting embeddings by ID"""

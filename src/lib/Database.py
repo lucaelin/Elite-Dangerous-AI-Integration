@@ -177,7 +177,7 @@ class VectorStore():
         # Create table for metadata
         self.cursor.execute(f'''
             CREATE TABLE IF NOT EXISTS {self.table_name} (
-                id TEXT PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 metadata TEXT,
                 inserted_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
@@ -220,7 +220,7 @@ class VectorStore():
         
         self.conn.commit()
     
-    def search(self, query_embedding: List[float], n: int = 5) -> List[Tuple[str, Dict[str, Any], float]]:
+    def search(self, query_embedding: List[float], n: int = 5) -> List[Tuple[int, Dict[str, Any], float]]:
         """
         Search for similar embeddings
         
@@ -236,18 +236,26 @@ class VectorStore():
         
         # Query for nearest neighbors using vector similarity
         self.cursor.execute(f'''
-            SELECT v.rowid, t.metadata, v.distance
-            FROM {self.vector_table} v
-            JOIN {self.table_name} t ON v.rowid = t.id
-            WHERE v.embedding MATCH ? and k = ?
-            ORDER BY v.distance
-            LIMIT ?
-        ''', (query_json, n, n))
+            with knn_matches as (
+                select
+                    rowid,
+                    distance
+                from {self.vector_table}
+                where embedding match :query
+                    and k = :n
+            )
+            select
+            d.id,
+            d.metadata,
+            knn_matches.distance
+            from knn_matches
+            left join {self.table_name} d on d.id = knn_matches.rowid
+        ''', {"query": query_json, "n": n})
         
         results = self.cursor.fetchall()
         
         # Convert results to the expected format
-        return [(str(row[0]), json.loads(row[1]), 1.0 - row[2]) for row in results]
+        return [(row[0], json.loads(row[1]), 1.0 - row[2]) for row in results]
     
     def delete(self, id: str) -> None:
         """Delete an embedding by id"""
