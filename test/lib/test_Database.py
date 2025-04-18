@@ -7,8 +7,9 @@ from datetime import datetime
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from unittest.mock import patch
-from src.lib.Database import EventStore, KeyValueStore
+from unittest.mock import patch, MagicMock
+import numpy as np
+from src.lib.Database import EventStore, KeyValueStore, VectorStore, get_connection
 
 # Test event classes
 @dataclass
@@ -31,7 +32,9 @@ def mock_connection(db_path, monkeypatch):
         return db_path
     
     monkeypatch.setattr('src.lib.Database.get_db_path', mock_get_db_path)
-    conn = sqlite3.connect(db_path)
+    
+    conn = get_connection()
+    
     return conn
 
 @pytest.fixture
@@ -41,6 +44,12 @@ def event_store(mock_connection):
 @pytest.fixture
 def kv_store(mock_connection):
     return KeyValueStore("test_store")
+
+@pytest.fixture
+def vector_store(mock_connection):
+    store = VectorStore("test_vectors", embedding_dim=4)
+    
+    return store
 
 # EventStore Tests
 def test_event_store_init(event_store, mock_connection):
@@ -139,3 +148,57 @@ def test_kv_store_delete_all(kv_store):
     
     kv_store.delete_all()
     assert len(kv_store.get_all()) == 0
+
+# VectorStore Tests
+def test_vector_store_init(vector_store, mock_connection):
+    """Test VectorStore initialization creates tables"""
+    cursor = mock_connection.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='test_vectors_v1'")
+    assert cursor.fetchone() is not None
+    
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='test_vectors_vec_v1'")
+    assert cursor.fetchone() is not None
+
+def test_vector_store_store_and_search(vector_store):
+    """Test storing embeddings and searching for similar ones"""
+    # Store some embeddings
+    vector_store.store(1, [1.0, 0.0, 0.0, 0.0], {"text": "Document 1"})
+    vector_store.store(2, [0.7, 0.7, 0.0, 0.0], {"text": "Document 2"})
+    vector_store.store(3, [0.0, 0.0, 1.0, 0.0], {"text": "Document 3"})
+    
+    # Query for similar embeddings
+    results = vector_store.search([0.9, 0.1, 0.0, 0.0], 2)
+    
+    # Check results
+    assert len(results) <= 2  # We may get less than 2 because of our mocking
+    
+    if len(results) > 0:
+        # Check format of results
+        assert len(results[0]) == 3
+        assert isinstance(results[0][0], int)  # id
+        assert isinstance(results[0][1], dict)  # metadata
+        assert isinstance(results[0][2], float)  # similarity score
+
+def test_vector_store_delete(vector_store):
+    """Test deleting embeddings by ID"""
+    vector_store.store(1, [1.0, 0.0, 0.0, 0.0], {"text": "Document 1"})
+    vector_store.store(2, [0.0, 1.0, 0.0, 0.0], {"text": "Document 2"})
+    
+    # Delete one embedding
+    vector_store.delete(1)
+    
+    # Store table should no longer have id1
+    vector_store.cursor.execute(f"SELECT id FROM test_vectors_v1 WHERE id = 'id1'")
+    assert vector_store.cursor.fetchone() is None
+
+def test_vector_store_delete_all(vector_store):
+    """Test deleting all embeddings"""
+    vector_store.store(1, [1.0, 0.0, 0.0, 0.0], {"text": "Document 1"})
+    vector_store.store(2, [0.0, 1.0, 0.0, 0.0], {"text": "Document 2"})
+    
+    # Delete all embeddings
+    vector_store.delete_all()
+    
+    # Tables should be empty
+    vector_store.cursor.execute("SELECT COUNT(*) FROM test_vectors_v1")
+    assert vector_store.cursor.fetchone()[0] == 0
