@@ -745,6 +745,11 @@ dependencies = [
 name = "covas-next-ui"
 version = "0.1.0"
 dependencies = [
+ "cairo-rs",
+ "cairo-sys-rs",
+ "gdk",
+ "gdk-sys",
+ "gtk",
  "log",
  "serde",
  "serde_json",

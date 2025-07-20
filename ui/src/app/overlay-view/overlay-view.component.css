@@ -3,9 +3,10 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
-  font-family: "Jura", sans-serif
+  width: 100vw;
+  height: 100vh;
+  font-family: "Jura", sans-serif;
+  background-color: #f003;
 }
 
 .overlay-container {
@@ -16,6 +17,7 @@
   margin: 0 auto;
   overflow: hidden;
   perspective: 1920px;
+  background-color: #00f3;
 }
 /* Left positioning variant */
 .overlay-container.position-left {

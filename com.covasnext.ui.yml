@@ -5,6 +5,7 @@ sdk: org.gnome.Sdk
 command: covas-next-ui-wrapper
 finish-args:
   # X11 + XShm access (forced, no Wayland)
+  - --socket=wayland
   - --socket=x11
   - --share=ipc
   # Network access

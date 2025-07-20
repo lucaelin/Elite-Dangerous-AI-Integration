@@ -10,6 +10,15 @@ use tokio::io::{AsyncWriteExt, BufReader};
 use tokio::process::{Child, ChildStdin, Command};
 use tokio::sync::Mutex;
 
+#[cfg(target_os = "linux")]
+use cairo_sys::{cairo_rectangle_int_t, cairo_region_create_rectangle, cairo_region_destroy};
+#[cfg(target_os = "linux")]
+use gdk::prelude::*;
+#[cfg(target_os = "linux")]
+use gdk_sys::{gdk_window_input_shape_combine_region, gdk_window_invalidate_rect};
+#[cfg(target_os = "linux")]
+use gtk::prelude::*;
+
 // Define a function to get the commit hash, which will be set at build time
 // If not set, it will default to "development"
 fn get_commit_hash_value() -> &'static str {
@@ -259,7 +268,10 @@ async fn destroy_floating_overlay(app_handle: tauri::AppHandle) -> Result<(), St
     let overlay_window = app_handle
         .get_webview_window("overlay")
         .ok_or_else(|| "Overlay not found".to_string())?;
-    overlay_window.close();
+    let _ = overlay_window.close().or_else(|e| {
+        error!("Failed to close overlay window: {}", e);
+        Err("Failed to close overlay window".to_string())
+    });
 
     Ok(())
 }
@@ -277,19 +289,22 @@ async fn create_floating_overlay(
         tauri::WebviewUrl::App("index.html#/overlay".into()),
     );
     // First, get a reference to the main window
-    let main_window = app_handle
-        .get_webview_window("main")
-        .ok_or_else(|| "Main window not found".to_string())?;
+    //let main_window = app_handle
+    //    .get_webview_window("main")
+    //    .ok_or_else(|| "Main window not found".to_string())?;
 
     window_builder = window_builder
         .title("COVAS:NEXT Overlay")
-        //         .inner_size(480.0, 480.0)
+        .inner_size(1080.0, 720.0)
+        .position(0.0, 0.0)
+        .resizable(false)
         .decorations(false)
         .transparent(true)
-        .always_on_top(always_on_top)
+        .always_on_top(false)
         .skip_taskbar(false)
-        .maximized(maximized)
-        .fullscreen(fullscreen)
+        .maximized(false)
+        .fullscreen(false)
+        .focused(false)
         .visible(true);
 
     let window = window_builder
@@ -298,10 +313,75 @@ async fn create_floating_overlay(
         .build()
         .map_err(|e| format!("Failed to create floating overlay window: {}", e))?;
 
-    // Make the window non-clickable (ignore cursor events)
+    /*
+    window
+        .set_decorations(false)
+        .map_err(|e| format!("Failed to set window decorations: {}", e))?;
+    //window
+    //    .set_transparent(true)
+    //    .map_err(|e| format!("Failed to set window transparent: {}", e))?;
+    if maximized && false {
+        window
+            .maximize()
+            .map_err(|e| format!("Failed to set window maximized: {}", e))?;
+    }
+    if fullscreen && false {
+        window
+            .set_fullscreen(true)
+            .map_err(|e| format!("Failed to set window fullscreen: {}", e))?;
+    }
+    window
+        .set_resizable(false)
+        .map_err(|e| format!("Failed to set window resizable: {}", e))?;
+    window
+        .set_always_on_top(true)
+        .map_err(|e| format!("Failed to set window always on top: {}", e))?;
+    window
+        .set_skip_taskbar(true)
+        .map_err(|e| format!("Failed to set window to skip taskbar: {}", e))?;
+    */
     window
         .set_ignore_cursor_events(true)
         .map_err(|e| format!("Failed to set window to ignore cursor events: {}", e))?;
+
+    #[cfg(target_os = "linux")]
+    {
+        let gtk_window = window
+            .gtk_window()
+            .map_err(|e| format!("Failed to get GTK window: {}", e))?;
+
+        // Get the GDK window from the GTK window
+        if let Some(gdk_window) = gtk_window.window() {
+            // Create an empty Cairo region to set as input shape
+            // An empty rectangle region (0x0) means no area will capture input events
+            unsafe {
+                let mut empty_rect = cairo_rectangle_int_t {
+                    x: 0,
+                    y: 0,
+                    width: 0,
+                    height: 0,
+                };
+                let empty_region = cairo_region_create_rectangle(&mut empty_rect);
+                gdk_window_input_shape_combine_region(
+                    gdk_window.as_ptr(),
+                    empty_region,
+                    0, // x offset
+                    0, // y offset
+                );
+                cairo_region_destroy(empty_region);
+
+                // Invalidate the window to apply the input shape changes
+                gdk_window_invalidate_rect(
+                    gdk_window.as_ptr(),
+                    std::ptr::null_mut(), // nullptr = entire window
+                    0,                    // FALSE - don't invalidate children
+                );
+            }
+            info!("Set GTK window input shape to empty region (no input capture)");
+        } else {
+            return Err("Failed to get GDK window from GTK window".to_string());
+        }
+    }
 
     info!("Created floating overlay window");
 
