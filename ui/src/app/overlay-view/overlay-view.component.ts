@@ -99,8 +99,32 @@ export class OverlayViewComponent implements OnDestroy, AfterViewInit {
     // Make sure the background is transparent
     document.body.style.backgroundColor = "transparent";
     document.documentElement.style.backgroundColor = "transparent";
+
+    const canvas = document.createElement('canvas');
+    canvas.style.backgroundColor = "transparent";
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.position = "absolute";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.pointerEvents = "none"; // Allow clicks to pass through
+    document.body.firstElementChild?.prepend(canvas);
+    const ctx = canvas.getContext('2d');
+    this.updateBackgroundColor(canvas, ctx!);
   }
-  
+
+  updateBackgroundColor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Set the background color to transparent
+    ctx.fillStyle = "rgba(0, 0, 0, 0)"; // Fully transparent
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Request next frame to keep updating
+
+    requestAnimationFrame(() => {
+      this.updateBackgroundColor(canvas, ctx);
+    })
+  }
   ngAfterViewInit() {
     // Apply avatar background if we have one
     if (this.currentAvatarUrl) {
@@ -138,18 +162,24 @@ export class OverlayViewComponent implements OnDestroy, AfterViewInit {
   }
 
   private applyAvatarBackground() {
-    // Wait for next tick to ensure view is rendered, with longer timeout for *ngIf changes
-    setTimeout(() => {
-      // Only apply if avatar should be shown and element exists
-      if (this.avatarShow && this.pngtuberElement?.nativeElement) {
-        if (this.currentAvatarUrl) {
-          this.pngtuberElement.nativeElement.style.backgroundImage = `url('${this.currentAvatarUrl}')`;
-        } else {
-          // Revert to CSS default background image when no avatar URL
-          this.pngtuberElement.nativeElement.style.backgroundImage = '';
-        }
+    // Only apply if avatar should be shown and element exists
+    if (this.avatarShow && this.pngtuberElement?.nativeElement) {
+      if (this.currentAvatarUrl) {
+        // set css variable for avatar url
+        document.documentElement.style.setProperty('--avatar-url-listening', `url(${this.currentAvatarUrl}#listening)`);
+        document.documentElement.style.setProperty('--avatar-url-speaking', `url(${this.currentAvatarUrl}#speaking)`);
+        document.documentElement.style.setProperty('--avatar-url-thinking', `url(${this.currentAvatarUrl}#thinking)`);
+        document.documentElement.style.setProperty('--avatar-url-acting', `url(${this.currentAvatarUrl}#acting)`);
+        document.documentElement.style.setProperty('--avatar-url-idle', `url(${this.currentAvatarUrl}#idle)`);
+      } else {
+        // Revert to CSS default background image when no avatar
+        document.documentElement.style.setProperty('--avatar-url-listening', '');
+        document.documentElement.style.setProperty('--avatar-url-speaking', '');
+        document.documentElement.style.setProperty('--avatar-url-thinking', '');
+        document.documentElement.style.setProperty('--avatar-url-acting', '');
+        document.documentElement.style.setProperty('--avatar-url-idle', '');
       }
-    }, 10); // Slightly longer timeout to handle *ngIf rendering
+    }
   }
 
   public getLogColor(role: string): string {

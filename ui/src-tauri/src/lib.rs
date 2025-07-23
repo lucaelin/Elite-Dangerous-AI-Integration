@@ -15,7 +15,9 @@ use cairo_sys::{cairo_rectangle_int_t, cairo_region_create_rectangle, cairo_regi
 #[cfg(target_os = "linux")]
 use gdk::prelude::*;
 #[cfg(target_os = "linux")]
-use gdk_sys::{gdk_window_input_shape_combine_region, gdk_window_invalidate_rect};
+use gdk_sys::{
+    gdk_window_input_shape_combine_region, gdk_window_invalidate_rect, gdk_window_set_pass_through,
+};
 #[cfg(target_os = "linux")]
 use gtk::prelude::*;
 
@@ -300,7 +302,7 @@ async fn create_floating_overlay(
         .resizable(false)
         .decorations(false)
         .transparent(true)
-        .always_on_top(false)
+        .always_on_top(true)
         .skip_taskbar(false)
         .maximized(false)
         .fullscreen(false)
@@ -313,33 +315,6 @@ async fn create_floating_overlay(
         .build()
         .map_err(|e| format!("Failed to create floating overlay window: {}", e))?;
 
-    /*
-    window
-        .set_decorations(false)
-        .map_err(|e| format!("Failed to set window decorations: {}", e))?;
-    //window
-    //    .set_transparent(true)
-    //    .map_err(|e| format!("Failed to set window transparent: {}", e))?;
-    if maximized && false {
-        window
-            .maximize()
-            .map_err(|e| format!("Failed to set window maximized: {}", e))?;
-    }
-    if fullscreen && false {
-        window
-            .set_fullscreen(true)
-            .map_err(|e| format!("Failed to set window fullscreen: {}", e))?;
-    }
-    window
-        .set_resizable(false)
-        .map_err(|e| format!("Failed to set window resizable: {}", e))?;
-    window
-        .set_always_on_top(true)
-        .map_err(|e| format!("Failed to set window always on top: {}", e))?;
-    window
-        .set_skip_taskbar(true)
-        .map_err(|e| format!("Failed to set window to skip taskbar: {}", e))?;
-    */
     window
         .set_ignore_cursor_events(true)
         .map_err(|e| format!("Failed to set window to ignore cursor events: {}", e))?;
@@ -370,11 +345,16 @@ async fn create_floating_overlay(
                 );
                 cairo_region_destroy(empty_region);
 
+                gdk_window_set_pass_through(
+                    gdk_window.as_ptr(),
+                    1, // Set to true to allow clicks to pass through
+                );
+
                 // Invalidate the window to apply the input shape changes
                 gdk_window_invalidate_rect(
                     gdk_window.as_ptr(),
                     std::ptr::null_mut(), // nullptr = entire window
-                    0,                    // FALSE - don't invalidate children
+                    1,                    // FALSE - don't invalidate children
                 );
             }
             info!("Set GTK window input shape to empty region (no input capture)");
