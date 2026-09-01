@@ -27,6 +27,13 @@ def show_ui(obj, projected_states):
     """Show a specific UI tab, optionally selecting one of its supported submenus."""
     tab: str = (obj or {}).get('tab', 'chat')
     submenu: str | None = (obj or {}).get('submenu')
+    material_submenu_aliases = {
+        "raw_material": "raw material",
+        "manufactured_material": "manufactured material",
+        "encoded_material": "encoded material",
+    }
+    if submenu:
+        submenu = material_submenu_aliases.get(submenu, submenu)
     valid_tabs = {"chat", "status", "navigation", "storage", "station", "tasks", "logbook", "search"}
     valid_submenus = {
         "navigation": {"location", "list", "route"},
