@@ -2441,6 +2441,14 @@ class PromptGenerator:
             return 'Glide mode disengaged, returned to normal flight'
         if event_name == 'GlideModeEntered':
             return 'Entered atmospheric glide mode, maintaining controlled descent'
+        if event_name == 'SCOActivated':
+            return 'Supercruise Overdrive activated, accelerating beyond normal supercruise speeds'
+        if event_name == 'SCODeactivated':
+            return 'Supercruise Overdrive deactivated, returning to normal supercruise flight'
+        if event_name == 'SCAActivated':
+            return 'Supercruise Assist activated and controlling the ship toward its destination'
+        if event_name == 'SCADeactivated':
+            return 'Supercruise Assist deactivated and no longer controlling the ship'
         if event_name == 'LowFuelWarningCleared':
             return 'Fuel levels restored to acceptable levels'
         if event_name == 'LowFuelWarning':
