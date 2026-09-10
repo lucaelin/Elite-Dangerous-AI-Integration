@@ -295,6 +295,12 @@ export interface SubmitInputMessage extends BaseCommand {
     input: string;
 }
 
+export interface RunActionMessage extends BaseCommand {
+    type: "run_action";
+    action: string;
+    arguments?: Record<string, unknown>;
+}
+
 export interface QueryMemoriesMessage extends BaseCommand {
     type: "query_memories";
     query: string;

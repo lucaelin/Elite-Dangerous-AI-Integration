@@ -27,6 +27,7 @@ import { NavigationContainerComponent } from "../components/navigation-container
 import { MetricsService } from "../services/metrics.service.js";
 import { PolicyService } from "../services/policy.service.js";
 import {UIService} from "../services/ui.service";
+import { ActionsContainerComponent } from "../components/actions-container/actions-container.component";
 
 @Component({
     selector: "app-main-view",
@@ -50,6 +51,7 @@ import {UIService} from "../services/ui.service";
         MemoriesContainerComponent,
         SearchResultsComponent,
         NavigationContainerComponent,
+        ActionsContainerComponent,
     ],
     templateUrl: "./main-view.component.html",
     styleUrl: "./main-view.component.css",
