@@ -1603,7 +1603,7 @@ def migrate(data: dict) -> dict:
     return normalize_active_crew(data)
 
 
-MAX_ACTIVE_CHARACTERS = 4
+MAX_ACTIVE_CHARACTERS = 3
 
 
 def normalize_active_crew(config: dict) -> dict:
