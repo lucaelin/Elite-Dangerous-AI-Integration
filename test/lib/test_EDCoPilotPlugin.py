@@ -20,6 +20,7 @@ def commentary_plugin(monkeypatch):
     plugin = EDCoPilotPlugin.__new__(EDCoPilotPlugin)
     plugin.plugin_manifest = MagicMock(guid="edcopilot-plugin")
     plugin.settings = {"read_commentary": True, "voice": "Commentator"}
+    plugin.character = {}
     plugin._helper = MagicMock()
     plugin._helper._config = {
         "tts_provider": "plugin:tts-plugin:tts",
@@ -66,13 +67,14 @@ def test_commentary_uses_full_character_voice_settings(commentary_plugin, stored
         "plugin:tts-plugin:tts": stored_settings,
         "plugin:other-plugin:tts": {"voice": "wrong-voice"},
     }
+    commentary_plugin.initialize_character(commentary_plugin._helper._config)
 
     with pytest.raises(RuntimeError, match="stop event loop"):
         commentary_plugin.process_edcopilot_events()
 
     kwargs = commentary_plugin._helper._assistant.tts.say.call_args.kwargs
     assert commentary_plugin._helper._assistant.tts.say.call_args.args == ("EDCoPilot commentary",)
-    assert kwargs["voice"] is None
+    assert kwargs["voice"] == stored_settings.get("voice")
     assert kwargs["voice_settings"] == {
         "stability": 0.5, "instructions": "Global style", "model": "tts-model", **stored_settings,
     }
@@ -85,17 +87,22 @@ def test_commentary_uses_full_character_voice_settings(commentary_plugin, stored
 @pytest.mark.parametrize("voice", ["raw-voice", ""])
 def test_commentary_preserves_raw_voice_and_default_settings(commentary_plugin, voice):
     commentary_plugin.settings["voice"] = voice
+    commentary_plugin.initialize_character(commentary_plugin._helper._config)
 
     with pytest.raises(RuntimeError, match="stop event loop"):
         commentary_plugin.process_edcopilot_events()
 
     kwargs = commentary_plugin._helper._assistant.tts.say.call_args.kwargs
     assert kwargs["voice"] == (voice or None)
-    assert kwargs["voice_settings"] is None
-    assert kwargs["postprocessing"] is None
+    assert kwargs["voice_settings"] == {
+        "stability": 0.5, "instructions": "Global style", "model": "tts-model",
+        **({"voice": voice} if voice else {}),
+    }
+    assert kwargs["postprocessing"] == {}
 
 
 def test_commentary_does_not_apply_character_voice_settings_in_dominant_mode(commentary_plugin):
+    commentary_plugin.initialize_character(commentary_plugin._helper._config)
     commentary_plugin._helper._config["tts_provider"] = (
         f"plugin:{commentary_plugin.plugin_manifest.guid}:edcopilot-dominant"
     )

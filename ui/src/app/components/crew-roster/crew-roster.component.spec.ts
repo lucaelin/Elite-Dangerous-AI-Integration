@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvatarService } from "../../services/avatar.service";
-import { ConfigWithCharacters } from "../../services/character.service";
 import { ConfigService } from "../../services/config.service";
 import { CrewRosterComponent } from "./crew-roster.component";
 import { BehaviorSubject } from "rxjs";
@@ -37,10 +36,13 @@ describe("CrewRosterComponent", () => {
         fixture = TestBed.createComponent(CrewRosterComponent);
         component = fixture.componentInstance;
         fixture.componentRef.setInput("config", {
-            characters: [{ name: "COVAS", tts_voice: "alloy" }, { name: "Nyx", tts_voice: "nova" }, { name: "Orion", tts_voice: "echo" }],
+            tts_provider: "plugin:voice-plugin:tts",
+            characters: [["COVAS", "alloy"], ["Nyx", "nova"], ["Orion", "echo"]].map(([name, voice]) => ({
+                name, tts_voice_settings: { "plugin:voice-plugin:tts": { voice } },
+            })),
             active_character_index: 0,
             active_characters: [0, 1],
-        } as ConfigWithCharacters);
+        });
         fixture.detectChanges();
     });
 
@@ -108,6 +110,8 @@ describe("CrewRosterComponent", () => {
     });
 
     it("shows voices rather than primary/support role labels", () => {
+        providers$.next([{ plugin_guid: "voice-plugin", id: "tts", kind: "tts" } as ModelProviderDefinition]);
+        fixture.detectChanges();
         const voices = fixture.nativeElement.querySelectorAll(".crew-voice");
         expect(voices[0].textContent).toBe("alloy");
         expect(voices[1].textContent).toBe("nova");
