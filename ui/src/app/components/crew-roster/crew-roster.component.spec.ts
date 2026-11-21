@@ -18,7 +18,7 @@ describe("CrewRosterComponent", () => {
     beforeEach(async () => {
         providers$ = new BehaviorSubject<ModelProviderDefinition[]>([]);
         configService = jasmine.createSpyObj("ConfigService", ["changeConfig"], {
-            plugin_model_providers$: providers$, pluginCharacters$: new BehaviorSubject([]),
+            plugin_model_providers$: providers$,
         });
         configService.changeConfig.and.resolveTo();
         avatarService = jasmine.createSpyObj("AvatarService", ["getAvatarWithMime", "isObjectUrl"]);

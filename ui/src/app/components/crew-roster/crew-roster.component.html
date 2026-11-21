@@ -20,7 +20,7 @@
                          (mouseleave)="setHoveredCharacter(null)">
                         <button type="button" class="crew-portrait"
                                 [disabled]="saving"
-                                [attr.aria-label]="entry.character.name + (entry.plugin ? ', plugin character' : (previewOnly ? ', preview character info' : (isPrimary(entry.index) ? ', primary character' : ', make primary character')))"
+                                [attr.aria-label]="entry.character.name + (previewOnly ? ', preview character info' : (isPrimary(entry.index) ? ', primary character' : ', make primary character'))"
                                 [attr.aria-pressed]="isPrimary(entry.index)"
                                 (focus)="setFocusedCharacter(entry.index)"
                                 (blur)="setFocusedCharacter(null)"
@@ -39,7 +39,7 @@
                                 <span class="crew-voice">{{ getVoiceDisplay(entry.character) }}</span>
                             </span>
                         </button>
-                        @if (!previewOnly && !entry.plugin && !isPrimary(entry.index)) {
+                        @if (!previewOnly && !isPrimary(entry.index)) {
                             <button mat-icon-button type="button" class="crew-set-primary-button crew-avatar-control"
                                     [disabled]="saving"
                                     [attr.aria-label]="'Make ' + entry.character.name + ' primary'"
@@ -55,11 +55,11 @@
                                     [disabled]="saving || entry.index === 0"
                                     [attr.aria-label]="'Edit ' + entry.character.name"
                                     [title]="entry.index === 0 ? 'Duplicate Default to customize it' : 'Edit character'"
-                                    (click)="editEntry(entry)">
+                                    (click)="editCharacter(entry.index)">
                                 <mat-icon>edit</mat-icon>
                             </button>
                         }
-                        @if (showManager && !previewOnly && !entry.plugin) {
+                        @if (showManager && !previewOnly) {
                             <button type="button" class="crew-standby-action crew-avatar-control"
                                     [disabled]="saving || isPrimary(entry.index)"
                                     [attr.aria-label]="'Move ' + entry.character.name + ' to standby'"

@@ -3,7 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvatarService } from "../../services/avatar.service";
-import { Character, CharacterService, ConfigWithCharacters, PluginCharacter } from "../../services/character.service";
+import { Character, CharacterService, ConfigWithCharacters } from "../../services/character.service";
 import { ConfigService } from "../../services/config.service";
 import { Subscription } from "rxjs";
 import { ModelProviderDefinition, providerVoiceDisplayValue } from "../../services/plugin-settings";
@@ -11,7 +11,6 @@ import { ModelProviderDefinition, providerVoiceDisplayValue } from "../../servic
 interface RosterEntry {
     index: number;
     character: Character;
-    plugin?: PluginCharacter;
 }
 
 type AvatarPreviewState = "listening" | "thinking" | "acting" | "speaking";
@@ -38,7 +37,6 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
     @Output() characterPreviewed = new EventEmitter<number | null>();
     @Output() rosterManagerChanged = new EventEmitter<boolean>();
     @Output() characterEditRequested = new EventEmitter<number>();
-    @Output() pluginCharacterEditRequested = new EventEmitter<PluginCharacter>();
     @Output() characterDuplicateRequested = new EventEmitter<number>();
     @Output() characterDeleteRequested = new EventEmitter<number>();
     @Output() characterAddRequested = new EventEmitter<void>();
@@ -57,8 +55,6 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
     private avatarReferences = new Set<string>();
     private providers: ModelProviderDefinition[] = [];
     private providersSubscription: Subscription;
-    private pluginCharactersSubscription: Subscription;
-    private pluginCharacters: PluginCharacter[] = [];
     private readonly fallbackAvatar: RosterAvatar = {
         url: CharacterService.DEFAULT_AVATAR_URL,
         mimeType: CharacterService.DEFAULT_AVATAR_MIME,
@@ -72,10 +68,6 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
         this.providersSubscription = this.configService.plugin_model_providers$.subscribe(
             (providers) => this.providers = providers,
         );
-        this.pluginCharactersSubscription = this.configService.pluginCharacters$.subscribe((characters) => {
-            this.pluginCharacters = characters;
-            if (this.config) this.ngOnChanges();
-        });
     }
 
     get activeIndices(): number[] {
@@ -84,12 +76,7 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
     }
 
     get activeEntries(): RosterEntry[] {
-        return [
-            ...this.activeIndices.map((index) => ({ index, character: this.config.characters[index] })),
-            ...this.pluginCharacters.filter(plugin => plugin.active).map((plugin, index) => ({
-                index: -index - 1, character: plugin.character as Character, plugin,
-            })),
-        ];
+        return this.activeIndices.map((index) => ({ index, character: this.config.characters[index] }));
     }
 
     get hasMultipleActiveCrew(): boolean {
@@ -109,12 +96,6 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
     editCharacter(index: number): void {
         if (this.previewOnly || this.saving || index === 0 || !this.config.characters[index]) return;
         this.characterEditRequested.emit(index);
-    }
-
-    editEntry(entry: RosterEntry): void {
-        if (this.previewOnly || this.saving) return;
-        if (entry.plugin) this.pluginCharacterEditRequested.emit(entry.plugin);
-        else this.editCharacter(entry.index);
     }
 
     addStandbyCharacter(): void {
@@ -190,9 +171,7 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
     }
 
     private getAvatarReference(character: Partial<Character>): string {
-        return character.avatar
-            || this.pluginCharacters.find(plugin => plugin.character === character)?.default_avatar
-            || this.fallbackAvatar.url;
+        return character.avatar || this.fallbackAvatar.url;
     }
 
     getAvatarUrl(character: Character): string {
@@ -206,8 +185,7 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
 
     ngOnChanges(): void {
         this.avatarReferences = new Set(
-            [...this.config.characters, ...this.pluginCharacters.filter(p => p.active).map(p => p.character)]
-                .map((character) => this.getAvatarReference(character)),
+            this.config.characters.map((character) => this.getAvatarReference(character)),
         );
         for (const [path, avatar] of this.avatars) {
             if (!this.avatarReferences.has(path)) {
@@ -279,7 +257,6 @@ export class CrewRosterComponent implements OnChanges, OnDestroy {
         this.destroyed = true;
         clearInterval(this.avatarPreviewInterval);
         this.providersSubscription.unsubscribe();
-        this.pluginCharactersSubscription.unsubscribe();
         for (const avatar of this.avatars.values()) {
             this.revokeAvatar(avatar);
         }

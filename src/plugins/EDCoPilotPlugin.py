@@ -2,7 +2,6 @@ import queue
 import threading
 import time
 import traceback
-from copy import deepcopy
 from typing import Any, override, Optional, Iterable, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -14,11 +13,11 @@ from lib.PluginSettingDefinitions import (
     SettingsGrid, 
     ToggleSetting, 
     ParagraphSetting,
-    ModelProviderDefinition, resolve_voice_settings
+    ModelProviderDefinition, TextSetting, resolve_voice_settings
 )
 from lib.Logger import log, show_chat_message
 from lib.PluginBase import PluginBase, PluginManifest
-from lib.Config import Config, load_config
+from lib.Config import load_config
 
 from EDMesg.CovasNext import (
     ExternalChatNotification,
@@ -300,28 +299,6 @@ class EDCoPilotPlugin(PluginBase):
         self.provider = None
         self.listener_thread = None
         self.event_publication_queue: queue.Queue[ExternalChatNotification|ExternalBackgroundChatNotification] = queue.Queue()
-        self.character_default_avatar = EDCOPILOT_AVATAR_URL
-        self.character = {
-            'name': 'EDCoPilot',
-            'avatar': EDCOPILOT_AVATAR_URL,
-            'color': '#9c27b0',
-            'tts_voice': '',
-            'tts_voice_settings': {},
-            'tts_speed': '1.0',
-            'tts_prompt': '',
-            'tts_postprocessing': {},
-            'read_commentary': False,
-            'react_to_commentary': False,
-        }
-        self.character_settings_config = [SettingsGrid(
-            key='commentary', label='Commentary', fields=[ToggleSetting(
-                key='read_commentary', label='Read out EDCoPilot commentary', type='toggle',
-                default_value=False, readonly=False, placeholder=None,
-            ), ToggleSetting(
-                key='react_to_commentary', label='React to EDCoPilot commentary', type='toggle',
-                default_value=False, readonly=False, placeholder=None,
-            )],
-        )]
 
         # Define the plugin settings and model providers - conditional on installation
         if self.is_installed():
@@ -385,14 +362,27 @@ class EDCoPilotPlugin(PluginBase):
                                 placeholder=None,
                                 default_value=True
                             ),
-                            ParagraphSetting(
-                                key="character_settings_hint",
-                                label=None,
-                                type="paragraph",
+                            ToggleSetting(
+                                key="read_commentary",
+                                label="Read out EDCoPilot commentary",
+                                type="toggle",
                                 readonly=False,
                                 placeholder=None,
-                                content="Edit EDCoPilot in <b>Character Settings → Active Crew</b> to change its avatar, text color, voice, voice effects, commentary readout, and commentary reactions. Enable the integration first to show it in the crew roster."
+                                default_value=False
                             ),
+                            ToggleSetting(
+                                key="react_to_commentary",
+                                label="React to EDCoPilot commentary",
+                                type="toggle",
+                                readonly=False,
+                                placeholder=None,
+                                default_value=False
+                            ),
+                            TextSetting(
+                                key="voice",
+                                label="EDCoPilot Character Name / Voice",
+                                type="text",
+                            )
                         ]
                     ),
                 ]
@@ -424,44 +414,6 @@ class EDCoPilotPlugin(PluginBase):
                     voice_settings_config=[],
                 ),
             ]
-
-    def initialize_character(self, config: Config) -> None:
-        assert self.character is not None
-        self.character['read_commentary'] = self.settings.pop('read_commentary', False)
-        self.character['react_to_commentary'] = self.settings.pop('react_to_commentary', False)
-        legacy_voice = self.settings.pop('voice', '') or ''
-        source = next((c for c in config.get('characters', []) if c.get('name') == legacy_voice), None)
-        if source:
-            for key in ('avatar', 'color', 'tts_voice', 'tts_voice_settings', 'tts_speed', 'tts_prompt', 'tts_postprocessing'):
-                if source.get(key):
-                    self.character[key] = deepcopy(source[key])
-        else:
-            self.character['tts_voice'] = legacy_voice
-
-    def is_character_active(self) -> bool:
-        return self.is_installed() and bool(self.settings.get('enabled', False))
-
-    def on_character_changed(self) -> None:
-        if getattr(self, '_helper', None):
-            self.share_config()
-
-    def _character_voice_settings(self, character: dict[str, Any]) -> dict[str, Any] | None:
-        provider_ref = self._helper._config.get('tts_provider', '')
-        parts = provider_ref.split(':', 2)
-        if len(parts) != 3 or parts[0] != 'plugin' or self.is_edcopilot_dominant():
-            return None
-        provider = self._helper._plugin_manager.get_plugin_provider(parts[1], parts[2])
-        grids = provider.get('voice_settings_config') if provider else None
-        if grids is None:
-            return None
-        stored = character.get('tts_voice_settings', {}).get(provider_ref, {})
-        overrides = dict(stored) if isinstance(stored, dict) else {}
-        if character.get('tts_voice'):
-            overrides.setdefault('voice', character['tts_voice'])
-        if character.get('tts_prompt'):
-            overrides.setdefault('instructions', character['tts_prompt'])
-        plugin_settings = self._helper._config.get('plugin_settings', {}).get(parts[1], {})
-        return resolve_voice_settings(grids, plugin_settings, overrides)
 
     def create_model(self, provider_id: str, settings: dict[str, Any]) -> LLMModel | STTModel | TTSModel | EmbeddingModel:
         """Create a model instance for the given provider."""
@@ -530,7 +482,7 @@ class EDCoPilotPlugin(PluginBase):
                         enabled_game_events.append(event)
                     if state == "hidden":
                         disabled_events.append(event)
-            read_commentary = (self.character or {}).get("read_commentary", False)
+            read_commentary = self.settings.get("read_commentary", False)
             
             return self.provider.publish(
                 ConfigurationUpdated(is_dominant=not is_edcopilot_dominant, enabled_game_events=enabled_game_events, is_voicing_edcopilot=read_commentary)
@@ -573,22 +525,49 @@ class EDCoPilotPlugin(PluginBase):
 
     def process_edcopilot_events(self):
 
+        config = self._helper._config
+        tts_provider = config.get('tts_provider')
+        provider = None
+        plugin_settings = {}
+        if isinstance(tts_provider, str) and tts_provider.startswith('plugin:'):
+            _, plugin_guid, provider_id = tts_provider.split(':', 2)
+            provider = self._helper._plugin_manager.get_plugin_provider(plugin_guid, provider_id)
+            plugin_settings = config.get('plugin_settings', {}).get(plugin_guid, {})
+
+        def character_voice_settings(character: dict[str, Any]) -> dict[str, Any] | None:
+            if self.is_edcopilot_dominant():
+                return None
+            provider_settings = character.get('tts_voice_settings', {}).get(tts_provider, {})
+            return resolve_voice_settings(
+                provider.get('voice_settings_config', []) if provider else [],
+                plugin_settings,
+                provider_settings if isinstance(provider_settings, dict) else {},
+            )
+
+        read_commentary = self.settings.get("read_commentary", False)
+        voice = self.settings.get("voice") or None
+        voice_settings = None
+        post_processing = None
+        avatar_url = EDCOPILOT_AVATAR_URL
+        for character in config['characters']:
+            if character.get('name') == voice:
+                voice_settings = character_voice_settings(character)
+                voice = None
+                post_processing = character.get('tts_postprocessing')
+                avatar_url = character.get('avatar') or EDCOPILOT_AVATAR_URL
+                break
+
         while True:
             if not self.client.pending_events.empty():
                 event = self.client.pending_events.get()
                 if isinstance(event, SpeakingPhraseEvent) and event.reason != 'covas':
-                    character = deepcopy(self.character or {})
-                    voice_settings = self._character_voice_settings(character)
-                    voice = (voice_settings or {}).get('voice') or character.get('tts_voice') or None
-                    read_commentary = character.get('read_commentary', False)
                     # log('info', 'eedcopilot', event)
                     text = event.text
 
-                    def dispatch_edcopilot_event(include_avatar: bool = False, text=text, character=character):
-                        content = {"text": text, 'display_name': character.get('name', 'EDCoPilot'),
-                                   'display_color': character.get('color')}
+                    def dispatch_edcopilot_event(include_avatar: bool = False):
+                        content = {"text": text}
                         if include_avatar:
-                            content["avatar_url"] = character.get('avatar') or self.character_default_avatar
+                            content["avatar_url"] = avatar_url
                         self._helper.dispatch_event(PluginEvent(
                             kind="plugin",
                             plugin_event_name="EdCoPilotEvent",
@@ -599,8 +578,8 @@ class EDCoPilotPlugin(PluginBase):
                         if event.interrupt:
                             self._helper._assistant.tts.abort()
 
-                        def on_start(dispatch=dispatch_edcopilot_event):
-                            dispatch(include_avatar=True)
+                        def on_start():
+                            dispatch_edcopilot_event(include_avatar=True)
                             self._helper._assistant.event_manager.add_assistant_speaking()
 
                         def on_complete():
@@ -611,8 +590,7 @@ class EDCoPilotPlugin(PluginBase):
                             text,
                             voice=voice,
                             voice_settings=voice_settings,
-                            speed=float(character.get('tts_speed') or 1.0),
-                            postprocessing=character.get('tts_postprocessing') or {},
+                            postprocessing=post_processing,
                             on_start=on_start,
                             on_complete=on_complete,
                         )
@@ -673,7 +651,8 @@ class EDCoPilotPlugin(PluginBase):
         self.event_listener_thread = threading.Thread(target=self.process_edcopilot_events)
         self.event_listener_thread.daemon = True
         self.event_listener_thread.start()
-        self._helper.register_event("EdCoPilotEvent", lambda event: bool((self.character or {}).get('react_to_commentary', False)), lambda event: "Received EdCoPilot Message: "+event.plugin_event_content.get("text", '-'))
+        should_reply_to_edcp = self.settings.get("react_to_commentary", False)
+        self._helper.register_event("EdCoPilotEvent", lambda event: should_reply_to_edcp, lambda event: "Received EdCoPilot Message: "+event.plugin_event_content.get("text", '-'))
         self._helper.register_projection(EDCoPilotPanelContents())
         self._helper.register_status_generator(self._edcopilot_panel_contents_status)
 
