@@ -74,8 +74,6 @@ export const GameEventCategories: Record<string, string[]> = {
         "SCADeactivated",
         "ApproachSettlement",
         "InDockingRange",
-        "VoiceDamaged",
-        "VoiceRepaired",
         "GlideModeExited",
         "GlideModeEntered",
         "Docked",
